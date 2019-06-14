@@ -1,0 +1,13 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="..\..\FSharp.TypeProviders.SDK\src\ProvidedTypes.fsi" />
+    <Compile Include="..\..\FSharp.TypeProviders.SDK\src\ProvidedTypes.fs" />
+    <Compile Include="Provider.fs" />
+  </ItemGroup>
+
+</Project>
