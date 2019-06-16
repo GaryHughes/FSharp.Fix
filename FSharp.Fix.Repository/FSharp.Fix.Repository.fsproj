@@ -5,13 +5,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Include="Runtime.fs" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\FSharp.Fix.Repository.DesignTime\FSharp.Fix.Repository.DesignTime.fsproj">
-      <IsFSharpDesignTimeProvider>true</IsFSharpDesignTimeProvider>
-    </ProjectReference>
+    <Compile Include="..\..\FSharp.TypeProviders.SDK\src\ProvidedTypes.fsi" />
+    <Compile Include="..\..\FSharp.TypeProviders.SDK\src\ProvidedTypes.fs" />
+    <Compile Include="Provider.fs" />
   </ItemGroup>
 
 </Project>

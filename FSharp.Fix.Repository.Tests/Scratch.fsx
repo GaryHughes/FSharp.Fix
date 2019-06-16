@@ -1,9 +1,8 @@
-#r "../FSharp.Fix.Repository/bin/Debug/netstandard2.0/FSharp.Fix.Repository.DesignTime.dll"
+#r "../FSharp.Fix.Repository/bin/Debug/netstandard2.0/FSharp.Fix.Repository.dll"
 
 open FSharp.Fix
 
-let a = Repository.Versions
-
+type r = Repository< @"C:\Users\Gary Hughes\Documents\git\Repository" >
 
 
 
