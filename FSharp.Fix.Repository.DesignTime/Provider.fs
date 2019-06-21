@@ -6,70 +6,36 @@ open System.IO
 open System.Reflection
 open ProviderImplementation.ProvidedTypes
 open FSharp.Core.CompilerServices
-//open FSharp.Data
-//open System.Xml.Linq
+open System.Xml.Linq
 
-[<Literal>]
-let FieldSample = """
-<Fields xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" copyright="Copyright (c) FIX Protocol Ltd. All Rights Reserved." edition="2010" version="FIX.4.4" xsi:noNamespaceSchemaLocation="../../schema/Fields.xsd" generated="2010-03-13T14:54:02-05:00">
-	<Field added="FIX.2.7">
-		<Tag>1</Tag>
-		<Name>Account</Name>
-		<Type>String</Type>
-		<AbbrName>Acct</AbbrName>
-		<NotReqXML>0</NotReqXML>
-		<Description>Account mnemonic as agreed between buy and sell sides, e.g. broker and institution or investor/intermediary and fund manager.</Description>
-	</Field>
-	<Field added="FIX.2.7">
-		<Tag>2</Tag>
-		<Name>AdvId</Name>
-		<Type>String</Type>
-		<AbbrName>AdvId</AbbrName>
-		<NotReqXML>0</NotReqXML>
-		<Description>Unique identifier of advertisement message.
-(Prior to FIX 4.1 this field was of type int)</Description>
-	</Field>
-</Fields>
-"""
 
-[<Literal>]
-let EnumSample = """ 
-<Enums>
-  <Enum added="FIX.2.7">
-    <Tag>4</Tag>
-    <Value>B</Value>
-    <SymbolicName>Buy</SymbolicName>
-    <Description>Buy</Description>
-  </Enum>
-  <Enum added="FIX.2.7">
-    <Tag>4</Tag>
-    <Value>S</Value>
-    <SymbolicName>Sell</SymbolicName>
-    <Description>Sell</Description>
-  </Enum>
- </Enums>
-"""
-
-// type Fields = XmlProvider< FieldSample >
-// type Enums = XmlProvider< EnumSample >
-
-// let createVersionEnums (versionType:ProvidedTypeDefinition) namespaceName assembly versionPath =
-//     let fieldData = Path.Combine(versionPath, "Base", "Fields.xml") |> Fields.Load
-//     let enumData = Path.Combine(versionPath, "Base", "Enums.xml") |> Enums.Load
-//     let tagValues = new Dictionary<int, List<XElement>>()
-//     enumData.Enums 
-//     |> Seq.cache
-//     |> Seq.groupBy(fun enum -> enum.Tag)
-//     |> Seq.iter(fun pair ->
-//         let tag = fst pair
-//         let values = snd pair
-//         match fieldData.Fields |> Seq.tryFind(fun field -> field.Tag = tag) with
-//         | None -> eprintf "Could not find field with Tag=%i version: %s\n" tag versionPath 
-//         | Some field -> 
-//             let enumType = ProvidedTypeDefinition(assembly, namespaceName, field.Name, Some typeof<obj>)
-//             versionType.AddMember(enumType)
-//     )
-//     versionType
+let createVersionEnums (versionType:ProvidedTypeDefinition) namespaceName assembly versionPath =
+    let fieldData = XDocument.Load(Path.Combine(versionPath, "Base", "Fields.xml"))
+    let enumData = XDocument.Load(Path.Combine(versionPath, "Base", "Enums.xml"))
+    //let tagValues = new Dictionary<string, List<XElement>>()
+    enumData.Root.Descendants(XName.Get("Enum")) 
+    |> Seq.map(fun enum ->
+        let tag = enum.Element(XName.Get("Tag")).Value
+        let value = enum.Element(XName.Get("Value")).Value
+        (tag, value))
+    |> Seq.groupBy(fun (tag, value) -> tag)
+    |> Seq.iter(fun (tag, values) ->
+        let field = query {
+            for field in fieldData.Root.Descendants(XName.Get("Field")) do
+            let fieldTag = field.Element(XName.Get("Tag")).Value
+            let fieldName = field.Element(XName.Get("Name")).Value
+            where (fieldTag = tag)
+            select (Some (fieldTag, fieldName, values))
+            headOrDefault
+        }
+        match field with
+        | None -> eprintf "Could not find field with Tag=%s version: %s\n" tag versionPath 
+        | Some (_, fieldName, _) ->
+            let enumType = ProvidedTypeDefinition(assembly, namespaceName, fieldName, Some typeof<obj>)
+            versionType.AddMember(enumType)
+        )
+    versionType
+  
 
 [<TypeProvider>]
 type RepositoryProvider (config : TypeProviderConfig) as this =
@@ -86,7 +52,7 @@ type RepositoryProvider (config : TypeProviderConfig) as this =
         for directory in Directory.EnumerateDirectories(path, "FIX*") do
             let versionName = Path.GetFileName(directory).Replace(".", "_");
             let versionType = ProvidedTypeDefinition(thisAssembly, namespaceName, versionName, Some typeof<obj>)
-            //createVersionEnums versionType namespaceName thisAssembly directory |> ignore
+            createVersionEnums versionType namespaceName thisAssembly directory |> ignore
             ty.AddMember(versionType)
         ty
     
