@@ -1,4 +1,4 @@
-﻿module FSharp.Fix
+module FSharp.Fix
 
 open System
 open System.Collections.Generic
@@ -6,8 +6,8 @@ open System.IO
 open System.Reflection
 open ProviderImplementation.ProvidedTypes
 open FSharp.Core.CompilerServices
-open FSharp.Data
-open System.Xml.Linq
+//open FSharp.Data
+//open System.Xml.Linq
 
 [<Literal>]
 let FieldSample = """
@@ -50,31 +50,31 @@ let EnumSample = """
  </Enums>
 """
 
-type Fields = XmlProvider< FieldSample >
-type Enums = XmlProvider< EnumSample >
+// type Fields = XmlProvider< FieldSample >
+// type Enums = XmlProvider< EnumSample >
 
-let createVersionEnums (versionType:ProvidedTypeDefinition) namespaceName assembly versionPath =
-    let fieldData = Path.Combine(versionPath, "Base", "Fields.xml") |> Fields.Load
-    let enumData = Path.Combine(versionPath, "Base", "Enums.xml") |> Enums.Load
-    let tagValues = new Dictionary<int, List<XElement>>()
-    enumData.Enums 
-    |> Seq.cache
-    |> Seq.groupBy(fun enum -> enum.Tag)
-    |> Seq.iter(fun pair ->
-        let tag = fst pair
-        let values = snd pair
-        match fieldData.Fields |> Seq.tryFind(fun field -> field.Tag = tag) with
-        | None -> eprintf "Could not find field with Tag=%i version: %s\n" tag versionPath 
-        | Some field -> 
-            let enumType = ProvidedTypeDefinition(assembly, namespaceName, field.Name, Some typeof<obj>)
-            versionType.AddMember(enumType)
-    )
-    versionType
+// let createVersionEnums (versionType:ProvidedTypeDefinition) namespaceName assembly versionPath =
+//     let fieldData = Path.Combine(versionPath, "Base", "Fields.xml") |> Fields.Load
+//     let enumData = Path.Combine(versionPath, "Base", "Enums.xml") |> Enums.Load
+//     let tagValues = new Dictionary<int, List<XElement>>()
+//     enumData.Enums 
+//     |> Seq.cache
+//     |> Seq.groupBy(fun enum -> enum.Tag)
+//     |> Seq.iter(fun pair ->
+//         let tag = fst pair
+//         let values = snd pair
+//         match fieldData.Fields |> Seq.tryFind(fun field -> field.Tag = tag) with
+//         | None -> eprintf "Could not find field with Tag=%i version: %s\n" tag versionPath 
+//         | Some field -> 
+//             let enumType = ProvidedTypeDefinition(assembly, namespaceName, field.Name, Some typeof<obj>)
+//             versionType.AddMember(enumType)
+//     )
+//     versionType
 
 [<TypeProvider>]
 type RepositoryProvider (config : TypeProviderConfig) as this =
-    inherit TypeProviderForNamespaces (config)
-
+    inherit TypeProviderForNamespaces (config, assemblyReplacementMap=[("FSharp.Fix.DesignTime", "FSharp.Fix")], addDefaultProbingLocation=true)
+   
     let namespaceName = "FSharp.Fix"
     let thisAssembly = Assembly.GetExecutingAssembly()
 
@@ -86,7 +86,7 @@ type RepositoryProvider (config : TypeProviderConfig) as this =
         for directory in Directory.EnumerateDirectories(path, "FIX*") do
             let versionName = Path.GetFileName(directory).Replace(".", "_");
             let versionType = ProvidedTypeDefinition(thisAssembly, namespaceName, versionName, Some typeof<obj>)
-            createVersionEnums versionType namespaceName thisAssembly directory |> ignore
+            //createVersionEnums versionType namespaceName thisAssembly directory |> ignore
             ty.AddMember(versionType)
         ty
     
