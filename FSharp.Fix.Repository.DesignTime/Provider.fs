@@ -6,6 +6,7 @@ open ProviderImplementation.ProvidedTypes
 open FSharp.Core.CompilerServices
 open Repository.Enum
 open Repository.DataType
+open Repository.Field
   
 
 [<TypeProvider>]
@@ -25,6 +26,7 @@ type RepositoryProvider (config : TypeProviderConfig) as this =
             let versionType = ProvidedTypeDefinition(thisAssembly, namespaceName, versionName, Some typeof<obj>)
             createEnums namespaceName thisAssembly directory |> Seq.iter(fun value -> versionType.AddMember(value))
             createDataTypes namespaceName thisAssembly directory |> Seq.iter(fun value -> versionType.AddMember(value))
+            createFields namespaceName thisAssembly directory |> Seq.iter(fun value -> versionType.AddMember(value))
             ty.AddMember(versionType)
         ty
     
