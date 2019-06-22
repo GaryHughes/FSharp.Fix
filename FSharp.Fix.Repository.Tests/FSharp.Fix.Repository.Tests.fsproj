@@ -12,6 +12,7 @@
     <Compile Include="XmlDataTypeTests.fs" />
     <Compile Include="XmlComponentTests.fs" />
     <Compile Include="XmlMsgContentTests.fs" />
+    <Compile Include="XmlMessageTests.fs" />
   </ItemGroup>
  
   <ItemGroup>
