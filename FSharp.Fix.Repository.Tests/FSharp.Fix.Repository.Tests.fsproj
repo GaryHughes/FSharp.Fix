@@ -23,7 +23,7 @@
 
 
   <ItemGroup>
-    <ProjectReference Include="..\FSharp.Fix.Repository.DesignTime\FSharp.Fix.Repository.DesignTime.fsproj" />
+    <ProjectReference Include="..\FSharp.Fix.Repository\FSharp.Fix.Repository.fsproj" />
   </ItemGroup>
 
 </Project>
