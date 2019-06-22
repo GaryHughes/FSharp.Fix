@@ -9,6 +9,7 @@
     <None Include="Scratch.fsx" />
     <Compile Include="XmlEnumTests.fs" />
     <Compile Include="XmlDataTypeTests.fs" />
+    <Compile Include="XmlComponentTests.fs" />
   </ItemGroup>
  
   <ItemGroup>
