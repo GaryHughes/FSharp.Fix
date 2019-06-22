@@ -5,6 +5,7 @@ open System.Reflection
 open ProviderImplementation.ProvidedTypes
 open FSharp.Core.CompilerServices
 open Repository.Enum
+open Repository.DataType
   
 
 [<TypeProvider>]
@@ -22,7 +23,9 @@ type RepositoryProvider (config : TypeProviderConfig) as this =
         for directory in Directory.EnumerateDirectories(path, "FIX*") do
             let versionName = Path.GetFileName(directory).Replace(".", "_");
             let versionType = ProvidedTypeDefinition(thisAssembly, namespaceName, versionName, Some typeof<obj>)
-            createEnums versionType namespaceName thisAssembly directory |> ty.AddMember
+            createEnums namespaceName thisAssembly directory |> Seq.iter(fun value -> versionType.AddMember(value))
+            createDataTypes namespaceName thisAssembly directory |> Seq.iter(fun value -> versionType.AddMember(value))
+            ty.AddMember(versionType)
         ty
     
     let parameters = [ ProvidedStaticParameter("Path", typeof<string>, parameterDefaultValue = "") ]

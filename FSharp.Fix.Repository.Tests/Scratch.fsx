@@ -8,7 +8,7 @@ let tag = repo.FIX_4_0.OrdStatus.Filled.Tag
 
 repo.FIX_4_0.OrdStatus.PartiallyFilled.Description
 
-
+repo.FIX_4_0.DataTypes.float.Description
  
 
 

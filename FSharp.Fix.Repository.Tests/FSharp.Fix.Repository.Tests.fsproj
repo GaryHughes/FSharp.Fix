@@ -1,29 +1,32 @@
-<Project Sdk="Microsoft.NET.Sdk">
-
+<Project Sdk="Microsoft.NET.Sdk" InitialTargets="CopyTestFiles">
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
-
-    <IsPackable>false</IsPackable>
-    <GenerateProgramFile>false</GenerateProgramFile>
   </PropertyGroup>
-
+  <ItemGroup>
+    <ProjectReference Include="..\FSharp.Fix.Repository\FSharp.Fix.Repository.fsproj" />
+  </ItemGroup>
   <ItemGroup>
     <None Include="Scratch.fsx" />
-    <Compile Include="Tests.fs" />
-    <Compile Include="Program.fs" />
+    <Compile Include="XmlEnumTests.fs" />
+    <Compile Include="XmlDataTypeTests.fs" />
   </ItemGroup>
-
-  <ItemGroup />
-
+ 
   <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.0.1" />
     <PackageReference Include="MSTest.TestAdapter" Version="1.4.0" />
     <PackageReference Include="MSTest.TestFramework" Version="1.4.0" />
   </ItemGroup>
 
-
   <ItemGroup>
     <ProjectReference Include="..\FSharp.Fix.Repository\FSharp.Fix.Repository.fsproj" />
   </ItemGroup>
+
+  <ItemGroup>
+    <TestFiles Include="$(MSBuildProjectDirectory)\TestRepository\**\*.*" /> 
+  </ItemGroup>
+ 
+  <Target Name="CopyTestFiles">
+    <Copy SourceFiles="@(TestFiles)" DestinationFolder="$(OutputPath)\TestRepository\%(RecursiveDir)"></Copy>
+  </Target>
 
 </Project>

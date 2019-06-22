@@ -12,11 +12,12 @@
   <ItemGroup>
     <Compile Include="..\..\FSharp.TypeProviders.SDK\src\ProvidedTypes.fsi" />
     <Compile Include="..\..\FSharp.TypeProviders.SDK\src\ProvidedTypes.fs" />
+    <Compile Include="XmlDataType.fs" />
     <Compile Include="XmlEnum.fs" />
     <Compile Include="XmlField.fs" />
+    <Compile Include="DataType.fs" />
     <Compile Include="Enum.fs" />
     <Compile Include="Provider.fs" />
   </ItemGroup>
-
   
 </Project>

@@ -1,11 +1,14 @@
 module Repository.Enum
 
+open System.Collections.Generic
 open ProviderImplementation.ProvidedTypes
 open Repository.Xml.Enum
 open Repository.Xml.Field
 
-let createEnums (versionType:ProvidedTypeDefinition) namespaceName assembly versionPath =
+let createEnums namespaceName assembly versionPath =
     
+    let types = new List<ProvidedTypeDefinition>()
+
     let fields = loadFields versionPath
     
     loadEnums versionPath
@@ -63,7 +66,7 @@ let createEnums (versionType:ProvidedTypeDefinition) namespaceName assembly vers
                 enumType.AddMember(valueType)
             )
 
-            versionType.AddMember(enumType)
+            types.Add(enumType)
         )        
 
-    versionType
+    types
