@@ -16,6 +16,7 @@
     <Compile Include="XmlEnum.fs" />
     <Compile Include="XmlField.fs" />
     <Compile Include="XmlComponent.fs" />
+    <Compile Include="XmlMsgContent.fs" />
     <Compile Include="DataType.fs" />
     <Compile Include="Enum.fs" />
     <Compile Include="Provider.fs" />
