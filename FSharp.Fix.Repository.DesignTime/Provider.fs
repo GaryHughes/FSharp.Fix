@@ -7,8 +7,8 @@ open FSharp.Core.CompilerServices
 open Repository.Enum
 open Repository.DataType
 open Repository.Field
+open Repository.Message
   
-
 [<TypeProvider>]
 type RepositoryProvider (config : TypeProviderConfig) as this =
     inherit TypeProviderForNamespaces (config, assemblyReplacementMap=[("FSharp.Fix.DesignTime", "FSharp.Fix")], addDefaultProbingLocation=true)
@@ -27,6 +27,7 @@ type RepositoryProvider (config : TypeProviderConfig) as this =
             createEnums namespaceName thisAssembly directory |> Seq.iter(fun value -> versionType.AddMember(value))
             createDataTypes namespaceName thisAssembly directory |> Seq.iter(fun value -> versionType.AddMember(value))
             createFields namespaceName thisAssembly directory |> Seq.iter(fun value -> versionType.AddMember(value))
+            createMessages namespaceName thisAssembly directory |> Seq.iter(fun value -> versionType.AddMember(value))
             ty.AddMember(versionType)
         ty
     

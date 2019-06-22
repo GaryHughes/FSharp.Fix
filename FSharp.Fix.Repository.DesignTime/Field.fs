@@ -1,6 +1,5 @@
 module Repository.Field
 
-open System.Collections.Generic
 open ProviderImplementation.ProvidedTypes
 open Repository.Xml.Field
 

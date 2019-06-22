@@ -21,6 +21,7 @@
     <Compile Include="DataType.fs" />
     <Compile Include="Enum.fs" />
     <Compile Include="Field.fs" />
+    <Compile Include="Message.fs" />
     <Compile Include="Provider.fs" />
   </ItemGroup>
   
