@@ -1,15 +1,13 @@
 module Repository.Message
 
 open ProviderImplementation.ProvidedTypes
-open Repository.Xml.Message
+open Repository.Xml.Version
 
-let createMessages namespaceName assembly versionPath =
+let createMessages namespaceName assembly version =
     
     let messagesType = ProvidedTypeDefinition(assembly, namespaceName, "Messages", Some typeof<obj>)
 
-    let messages = loadMessages versionPath
-
-    for item in messages do
+    for item in version.Messages do
 
         let messageType = ProvidedTypeDefinition(assembly, namespaceName, item.Name, Some typeof<obj>)
 
@@ -22,6 +20,7 @@ let createMessages namespaceName assembly versionPath =
         let descriptionValue = item.Description
         let addedValue = item.Added
 
+        // nameof operator please https://github.com/fsharp/fslang-design/blob/master/RFCs/FS-1003-nameof-operator.md
         let componentIDType = ProvidedProperty(
                                 propertyName = "ComponentID",
                                 propertyType = typeof<string>,

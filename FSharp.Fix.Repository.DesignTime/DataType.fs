@@ -1,15 +1,13 @@
 module Repository.DataType
 
 open ProviderImplementation.ProvidedTypes
-open Repository.Xml.DataType
+open Repository.Xml.Version
 
-let createDataTypes namespaceName assembly versionPath =
+let createDataTypes namespaceName assembly version =
 
     let dataTypesType = ProvidedTypeDefinition(assembly, namespaceName, "DataTypes", Some typeof<obj>)
 
-    let dataTypes = loadDataTypes versionPath
-
-    for item in dataTypes do
+    for item in version.DataTypes do
     
         let dataType = ProvidedTypeDefinition(assembly, namespaceName, item.Name, Some typeof<obj>)
 
@@ -19,6 +17,7 @@ let createDataTypes namespaceName assembly versionPath =
         let updatedValue = item.Updated
         let updatedEPValue = item.UpdatedEP
 
+        // nameof operator please https://github.com/fsharp/fslang-design/blob/master/RFCs/FS-1003-nameof-operator.md
         let baseType = ProvidedProperty(
                         propertyName = "BaseType",
                         propertyType = typeof<string>,

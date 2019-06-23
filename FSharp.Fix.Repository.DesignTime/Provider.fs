@@ -4,6 +4,7 @@ open System.IO
 open System.Reflection
 open ProviderImplementation.ProvidedTypes
 open FSharp.Core.CompilerServices
+open Repository.Xml.Version
 open Repository.Enum
 open Repository.DataType
 open Repository.Field
@@ -24,10 +25,11 @@ type RepositoryProvider (config : TypeProviderConfig) as this =
         for directory in Directory.EnumerateDirectories(path, "FIX*") do
             let versionName = Path.GetFileName(directory).Replace(".", "_");
             let versionType = ProvidedTypeDefinition(thisAssembly, namespaceName, versionName, Some typeof<obj>)
-            createEnums namespaceName thisAssembly directory |> Seq.iter(fun value -> versionType.AddMember(value))
-            createDataTypes namespaceName thisAssembly directory |> Seq.iter(fun value -> versionType.AddMember(value))
-            createFields namespaceName thisAssembly directory |> Seq.iter(fun value -> versionType.AddMember(value))
-            createMessages namespaceName thisAssembly directory |> Seq.iter(fun value -> versionType.AddMember(value))
+            let version = loadVersion directory
+            createEnums namespaceName thisAssembly version |> Seq.iter(fun value -> versionType.AddMember(value))
+            createDataTypes namespaceName thisAssembly version |> Seq.iter(fun value -> versionType.AddMember(value))
+            createFields namespaceName thisAssembly version |> Seq.iter(fun value -> versionType.AddMember(value))
+            createMessages namespaceName thisAssembly version |> Seq.iter(fun value -> versionType.AddMember(value))
             ty.AddMember(versionType)
         ty
     

@@ -1,15 +1,13 @@
 module Repository.Field
 
 open ProviderImplementation.ProvidedTypes
-open Repository.Xml.Field
+open Repository.Xml.Version
 
-let createFields namespaceName assembly versionPath =
+let createFields namespaceName assembly version =
     
     let fieldsType = ProvidedTypeDefinition(assembly, namespaceName, "Fields", Some typeof<obj>)
 
-    let fields = loadFields versionPath
-
-    for item in fields do
+    for item in version.Fields do
 
         let fieldType = ProvidedTypeDefinition(assembly, namespaceName, item.Name, Some typeof<obj>)
 
@@ -20,6 +18,7 @@ let createFields namespaceName assembly versionPath =
         let descriptionValue = item.Description
         let addedValue = item.Added
 
+        // nameof operator please https://github.com/fsharp/fslang-design/blob/master/RFCs/FS-1003-nameof-operator.md
         let tagType = ProvidedProperty(
                         propertyName = "Tag",
                         propertyType = typeof<int>,
