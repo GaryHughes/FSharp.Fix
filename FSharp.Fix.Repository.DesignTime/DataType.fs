@@ -11,6 +11,7 @@ let createDataTypes namespaceName assembly version =
     
         let dataType = ProvidedTypeDefinition(assembly, namespaceName, item.Name, Some typeof<obj>)
 
+        // the property getters fail at runtime if we use item.property directly
         let baseTypeValue = item.BaseType
         let descriptionValue = item.Description
         let addedValue = item.Added
@@ -18,42 +19,41 @@ let createDataTypes namespaceName assembly version =
         let updatedEPValue = item.UpdatedEP
 
         // nameof operator please https://github.com/fsharp/fslang-design/blob/master/RFCs/FS-1003-nameof-operator.md
-        let baseType = ProvidedProperty(
-                        propertyName = "BaseType",
-                        propertyType = typeof<string>,
-                        isStatic = true,
-                        getterCode = (fun args -> <@@ baseTypeValue @@>))
+        ProvidedProperty(
+            propertyName = "BaseType",
+            propertyType = typeof<string>,
+            isStatic = true,
+            getterCode = (fun args -> <@@ baseTypeValue @@>))
+        |> dataType.AddMember
 
-        let description = ProvidedProperty(
-                            propertyName = "Description",
-                            propertyType = typeof<string>,
-                            isStatic = true,
-                            getterCode = (fun args -> <@@ descriptionValue @@>))
+        ProvidedProperty(
+            propertyName = "Description",
+            propertyType = typeof<string>,
+            isStatic = true,
+            getterCode = (fun args -> <@@ descriptionValue @@>))
+        |> dataType.AddMember
 
-        let added = ProvidedProperty(
-                        propertyName = "Added",
-                        propertyType = typeof<string>,
-                        isStatic = true,
-                        getterCode = (fun args -> <@@ addedValue @@>))
+        ProvidedProperty(
+            propertyName = "Added",
+            propertyType = typeof<string>,
+            isStatic = true,
+            getterCode = (fun args -> <@@ addedValue @@>))
+        |> dataType.AddMember
 
-        let updated = ProvidedProperty(
-                        propertyName = "Updated",
-                        propertyType = typeof<string>,
-                        isStatic = true,
-                        getterCode = (fun args -> <@@ updatedValue @@>))
+        ProvidedProperty(
+            propertyName = "Updated",
+            propertyType = typeof<string>,
+            isStatic = true,
+            getterCode = (fun args -> <@@ updatedValue @@>))
+        |> dataType.AddMember
 
-        let updatedEP = ProvidedProperty(
-                            propertyName = "UpdatedEP",
-                            propertyType = typeof<string>,
-                            isStatic = true,
-                            getterCode = (fun args -> <@@ updatedEPValue @@>))
+        ProvidedProperty(
+            propertyName = "UpdatedEP",
+            propertyType = typeof<string>,
+            isStatic = true,
+            getterCode = (fun args -> <@@ updatedEPValue @@>))
+        |> dataType.AddMember
 
-        dataType.AddMember(baseType)
-        dataType.AddMember(description)
-        dataType.AddMember(added)
-        dataType.AddMember(updated)
-        dataType.AddMember(updatedEP)
-
-        dataTypesType.AddMember(dataType)
+        dataType |> dataTypesType.AddMember
 
     [dataTypesType]

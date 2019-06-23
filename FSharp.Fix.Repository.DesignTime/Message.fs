@@ -3,6 +3,11 @@ module Repository.Message
 open ProviderImplementation.ProvidedTypes
 open Repository.Xml.Version
 
+let createFieldsForMessage assembly namespaceName version message =
+    let fieldsType = ProvidedTypeDefinition(assembly, namespaceName, "Fields", Some typeof<obj>)
+
+    fieldsType
+
 let createMessages namespaceName assembly version =
     
     let messagesType = ProvidedTypeDefinition(assembly, namespaceName, "Messages", Some typeof<obj>)
@@ -11,6 +16,7 @@ let createMessages namespaceName assembly version =
 
         let messageType = ProvidedTypeDefinition(assembly, namespaceName, item.Name, Some typeof<obj>)
 
+        // the property getters fail at runtime if we use item.property directly
         let componentIDValue = item.ComponentID
         let msgTypeValue = item.MsgType
         let nameValue = item.Name
@@ -21,63 +27,63 @@ let createMessages namespaceName assembly version =
         let addedValue = item.Added
 
         // nameof operator please https://github.com/fsharp/fslang-design/blob/master/RFCs/FS-1003-nameof-operator.md
-        let componentIDType = ProvidedProperty(
-                                propertyName = "ComponentID",
-                                propertyType = typeof<string>,
-                                isStatic = true,
-                                getterCode = (fun args -> <@@ componentIDValue @@>))
+        ProvidedProperty(
+            propertyName = "ComponentID",
+            propertyType = typeof<string>,
+            isStatic = true,
+            getterCode = (fun args -> <@@ componentIDValue @@>)) 
+        |> messageType.AddMember
 
-        let msgTypeType = ProvidedProperty(
-                            propertyName = "MsgType",
-                            propertyType = typeof<string>,
-                            isStatic = true,
-                            getterCode = (fun args -> <@@ msgTypeValue @@>))
+        ProvidedProperty(
+            propertyName = "MsgType",
+            propertyType = typeof<string>,
+            isStatic = true,
+            getterCode = (fun args -> <@@ msgTypeValue @@>))
+        |> messageType.AddMember
 
-        let nameType = ProvidedProperty(
-                        propertyName = "Name",
-                        propertyType = typeof<string>,
-                        isStatic = true,
-                        getterCode = (fun args -> <@@ nameValue @@>))
+        ProvidedProperty(
+            propertyName = "Name",
+            propertyType = typeof<string>,
+            isStatic = true,
+            getterCode = (fun args -> <@@ nameValue @@>))
+        |> messageType.AddMember
 
-        let categoryIDType = ProvidedProperty(
-                                propertyName = "CategoryID",
-                                propertyType = typeof<string>,
-                                isStatic = true,
-                                getterCode = (fun args -> <@@ categoryIDValue @@>))
+        ProvidedProperty(
+            propertyName = "CategoryID",
+            propertyType = typeof<string>,
+            isStatic = true,
+            getterCode = (fun args -> <@@ categoryIDValue @@>))
+        |> messageType.AddMember
 
-        let sectionIDType = ProvidedProperty(
-                                propertyName = "SectionID",
-                                propertyType = typeof<string>,
-                                isStatic = true,
-                                getterCode = (fun args -> <@@ sectionIDValue @@>))
+        ProvidedProperty(
+            propertyName = "SectionID",
+            propertyType = typeof<string>,
+            isStatic = true,
+            getterCode = (fun args -> <@@ sectionIDValue @@>))
+        |> messageType.AddMember
 
-        let notReqXMLType = ProvidedProperty(
-                                propertyName = "NotReqXML",
-                                propertyType = typeof<string>,
-                                isStatic = true,
-                                getterCode = (fun args -> <@@ notReqXMLValue @@>))
+        ProvidedProperty(
+            propertyName = "NotReqXML",
+            propertyType = typeof<string>,
+            isStatic = true,
+            getterCode = (fun args -> <@@ notReqXMLValue @@>))
+        |> messageType.AddMember
 
-        let descriptionType = ProvidedProperty(
-                                propertyName = "Description",
-                                propertyType = typeof<string>,
-                                isStatic = true,
-                                getterCode = (fun args -> <@@ descriptionValue @@>))
+        ProvidedProperty(
+            propertyName = "Description",
+            propertyType = typeof<string>,
+            isStatic = true,
+            getterCode = (fun args -> <@@ descriptionValue @@>))
+        |> messageType.AddMember
 
-        let addedType = ProvidedProperty(
-                            propertyName = "Added",
-                            propertyType = typeof<string>,
-                            isStatic = true,
-                            getterCode = (fun args -> <@@ addedValue @@>))
+        ProvidedProperty(
+            propertyName = "Added",
+            propertyType = typeof<string>,
+            isStatic = true,
+            getterCode = (fun args -> <@@ addedValue @@>))
+        |> messageType.AddMember
 
-        messageType.AddMember(componentIDType)
-        messageType.AddMember(msgTypeType)
-        messageType.AddMember(nameType)
-        messageType.AddMember(categoryIDType)
-        messageType.AddMember(sectionIDType)
-        messageType.AddMember(notReqXMLType)
-        messageType.AddMember(descriptionType)
-        messageType.AddMember(addedType)
-  
-        messagesType.AddMember(messageType)
+        createFieldsForMessage assembly namespaceName version item |> messagesType.AddMember
+        messageType |> messagesType.AddMember
 
     [messagesType]

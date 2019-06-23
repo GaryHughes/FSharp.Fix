@@ -11,6 +11,7 @@ let createFields namespaceName assembly version =
 
         let fieldType = ProvidedTypeDefinition(assembly, namespaceName, item.Name, Some typeof<obj>)
 
+        // the property getters fail at runtime if we use item.property directly
         let tagValue = item.Tag
         let nameValue = item.Name
         let typeValue = item.Type
@@ -19,49 +20,48 @@ let createFields namespaceName assembly version =
         let addedValue = item.Added
 
         // nameof operator please https://github.com/fsharp/fslang-design/blob/master/RFCs/FS-1003-nameof-operator.md
-        let tagType = ProvidedProperty(
-                        propertyName = "Tag",
-                        propertyType = typeof<int>,
-                        isStatic = true,
-                        getterCode = (fun args -> <@@ tagValue @@>))
+        ProvidedProperty(
+            propertyName = "Tag",
+            propertyType = typeof<int>,
+            isStatic = true,
+            getterCode = (fun args -> <@@ tagValue @@>))
+        |> fieldType.AddMember
 
-        let nameType = ProvidedProperty(
-                        propertyName = "Name",
-                        propertyType = typeof<string>,
-                        isStatic = true,
-                        getterCode = (fun args -> <@@ nameValue @@>))
+        ProvidedProperty(
+            propertyName = "Name",
+            propertyType = typeof<string>,
+            isStatic = true,
+            getterCode = (fun args -> <@@ nameValue @@>))
+        |> fieldType.AddMember
 
-        let typeType = ProvidedProperty(
-                        propertyName = "Type",
-                        propertyType = typeof<string>,
-                        isStatic = true,
-                        getterCode = (fun args -> <@@ typeValue @@>))
+        ProvidedProperty(
+            propertyName = "Type",
+            propertyType = typeof<string>,
+            isStatic = true,
+            getterCode = (fun args -> <@@ typeValue @@>))
+        |> fieldType.AddMember
 
-        let notReqXMLType = ProvidedProperty(
-                                propertyName = "NotReqXML",
-                                propertyType = typeof<string>,
-                                isStatic = true,
-                                getterCode = (fun args -> <@@ notReqXMLValue @@>))
+        ProvidedProperty(
+            propertyName = "NotReqXML",
+            propertyType = typeof<string>,
+            isStatic = true,
+            getterCode = (fun args -> <@@ notReqXMLValue @@>))
+        |> fieldType.AddMember
 
-        let descriptionType = ProvidedProperty(
-                                propertyName = "Description",
-                                propertyType = typeof<string>,
-                                isStatic = true,
-                                getterCode = (fun args -> <@@ descriptionValue @@>))
+        ProvidedProperty(
+            propertyName = "Description",
+            propertyType = typeof<string>,
+            isStatic = true,
+            getterCode = (fun args -> <@@ descriptionValue @@>))
+        |> fieldType.AddMember
 
-        let addedType = ProvidedProperty(
-                            propertyName = "Added",
-                            propertyType = typeof<string>,
-                            isStatic = true,
-                            getterCode = (fun args -> <@@ addedValue @@>))
+        ProvidedProperty(
+            propertyName = "Added",
+            propertyType = typeof<string>,
+            isStatic = true,
+            getterCode = (fun args -> <@@ addedValue @@>))
+        |> fieldType.AddMember
 
-        fieldType.AddMember(tagType)
-        fieldType.AddMember(nameType)
-        fieldType.AddMember(typeType)
-        fieldType.AddMember(notReqXMLType)
-        fieldType.AddMember(descriptionType)
-        fieldType.AddMember(addedType)
-
-        fieldsType.AddMember(fieldType)
+        fieldType |> fieldsType.AddMember
 
     [fieldsType]

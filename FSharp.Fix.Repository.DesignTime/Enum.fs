@@ -26,42 +26,42 @@ let createEnums namespaceName assembly version =
             |> Seq.iter(fun value ->
                 let valueType = ProvidedTypeDefinition(assembly, namespaceName, value.SymbolicName, Some typeof<obj>)
 
+                // the property getters fail at runtime if we use item.property directly
                 let tagValue = value.Tag
                 let symbolicNameValue = value.SymbolicName
                 let descriptionValue = value.Description
                 let addedValue = value.Added
 
                 // nameof operator please https://github.com/fsharp/fslang-design/blob/master/RFCs/FS-1003-nameof-operator.md
-                let tag = ProvidedProperty(
-                            propertyName = "Tag",
-                            propertyType = typeof<int>,
-                            isStatic = true,
-                            getterCode = (fun args -> <@@ tagValue @@>))
+                ProvidedProperty(
+                    propertyName = "Tag",
+                    propertyType = typeof<int>,
+                    isStatic = true,
+                    getterCode = (fun args -> <@@ tagValue @@>))
+                |> valueType.AddMember
 
-                let symbolicName = ProvidedProperty(
-                                    propertyName = "SymbolicName",
-                                    propertyType = typeof<string>,
-                                    isStatic = true,
-                                    getterCode = (fun args -> <@@ symbolicNameValue @@>))
+                ProvidedProperty(
+                    propertyName = "SymbolicName",
+                    propertyType = typeof<string>,
+                    isStatic = true,
+                    getterCode = (fun args -> <@@ symbolicNameValue @@>))
+                |> valueType.AddMember
 
-                let description = ProvidedProperty(
-                                    propertyName = "Description",
-                                    propertyType = typeof<string>,
-                                    isStatic = true,
-                                    getterCode = (fun args -> <@@ descriptionValue @@>))
+                ProvidedProperty(
+                    propertyName = "Description",
+                    propertyType = typeof<string>,
+                    isStatic = true,
+                    getterCode = (fun args -> <@@ descriptionValue @@>))
+                |> valueType.AddMember
 
-                let addedValue = ProvidedProperty(
-                                    propertyName = "AddedValue",
-                                    propertyType = typeof<string>,
-                                    isStatic = true,
-                                    getterCode = (fun args -> <@@ addedValue @@>))
+                ProvidedProperty(
+                    propertyName = "AddedValue",
+                    propertyType = typeof<string>,
+                    isStatic = true,
+                    getterCode = (fun args -> <@@ addedValue @@>))
+                |> valueType.AddMember
 
-                valueType.AddMember(tag)
-                valueType.AddMember(symbolicName)
-                valueType.AddMember(description)
-                valueType.AddMember(addedValue)
-
-                enumType.AddMember(valueType)
+                valueType |> enumType.AddMember
             )
 
             types.Add(enumType)
