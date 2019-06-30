@@ -47,7 +47,11 @@ repo.FIX_4_0.Fields.TimeInForce.Type
 
 repo.FIX_4_0.Messages.OrderSingle.Description
 
-repo.FIX_4_0.Messages.TestRequest.Fields.DeliverToCompID.Description
+// Show all the fields of a message, indent each nested repeating group.
+repo.FIX_4_4.Messages.MarketDataSnapshotFullRefresh.Fields 
+|> Seq.iter(fun field -> printfn "%*s %s (%i) %b" (field.Indent * 4) " " field.Name field.Tag field.Required)
+
+
 ```
 
 
