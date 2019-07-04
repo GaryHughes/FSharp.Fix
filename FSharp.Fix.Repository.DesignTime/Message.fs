@@ -9,7 +9,7 @@ open Repository.Xml.Message
 
 
 // This is the definition of a field for a specific message.
-type public Field(field:Xml.Field.Field, required:bool, indent:int, added:string) =
+type public MessageField(field:Xml.Field.Field, required:bool, indent:int, added:string) =
     // Common properties from the version field definition
     member public __.Tag with get() = field.Tag 
     member public __.Name with get() = field.Name
@@ -32,7 +32,7 @@ let fieldsForMessage path componentID =
     let msgContents = Xml.MsgContent.loadMsgContents(path)
     let components = Xml.Component.loadComponents(path)
 
-    let messageFields = List<Field>()
+    let messageFields = List<MessageField>()
 
     let contentByComponentID = msgContents |> Seq.groupBy(fun content -> content.ComponentID) |> dict
     let componentsByName = components |> Seq.map(fun comp -> (comp.Name, comp)) |> dict
@@ -51,7 +51,7 @@ let fieldsForMessage path componentID =
                     // TODO - index this lookup 
                     let field = versionFields |> Seq.find(fun field -> field.Tag = fieldTag)
                     messageFields.Add(
-                        Field(
+                        MessageField(
                             field, 
                             Convert.ToInt32(content.Reqd) <> 0, 
                             parentIndent + Convert.ToInt32(content.Indent), 
@@ -68,14 +68,14 @@ let fieldsForMessage path componentID =
    
     messageFields.ToArray()
 
-type public Fields(path, componentID) =
+type public MessageFields(path, componentID) =
 
     let fields = fieldsForMessage path componentID
 
     member public __.Item index = fields.[index]
 
-    interface IEnumerable<Field> with
-        member __.GetEnumerator() : IEnumerator<Field> = 
+    interface IEnumerable<MessageField> with
+        member __.GetEnumerator() : IEnumerator<MessageField> = 
             (Seq.init fields.Length __.Item).GetEnumerator()
         member __.GetEnumerator() : IEnumerator = 
             (Seq.init fields.Length __.Item).GetEnumerator() :> IEnumerator
@@ -95,9 +95,9 @@ let createMessages namespaceName assembly version =
 
         ProvidedProperty(
             propertyName = "Fields",
-            propertyType = typeof<Fields>,
+            propertyType = typeof<MessageFields>,
             isStatic = true,
-            getterCode = (fun args -> <@@ Fields(repositoryPath, componentID) @@> ))
+            getterCode = (fun args -> <@@ MessageFields(repositoryPath, componentID) @@> ))
         |>  messageType.AddMember
         
         let componentIDValue = item.ComponentID
