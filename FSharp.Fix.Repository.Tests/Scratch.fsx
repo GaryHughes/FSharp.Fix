@@ -1,4 +1,5 @@
 #r "../FSharp.Fix.Repository/bin/Debug/netstandard2.0/FSharp.Fix.Repository.DesignTime.dll"
+#r "/usr/local/share/dotnet/shared/Microsoft.NETCore.App/2.2.4/netstandard.dll"
 
 open FSharp.Fix
 
