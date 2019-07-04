@@ -67,6 +67,6 @@ let createFields namespaceName assembly version =
 
     version.Fields 
     |> Seq.map(fun field -> createField namespaceName assembly field)
-    |> Seq.iter(fun t -> fieldsType.AddMember(t))
-   
+    |> Seq.iter(fieldsType.AddMember)
+
     [fieldsType]
