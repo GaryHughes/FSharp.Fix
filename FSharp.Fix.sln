@@ -13,6 +13,8 @@ Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "FSharp.Fix", "FSharp.Fix\FS
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "FSharp.Fix.Tests", "FSharp.Fix.Tests\FSharp.Fix.Tests.fsproj", "{AA013943-D529-4DF3-B94D-EF11300440C1}"
 EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "fixcat", "fixcat\fixcat.fsproj", "{36677583-F838-4795-A667-4D8A1178EDD1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -83,6 +85,18 @@ Global
 		{AA013943-D529-4DF3-B94D-EF11300440C1}.Release|x64.Build.0 = Release|Any CPU
 		{AA013943-D529-4DF3-B94D-EF11300440C1}.Release|x86.ActiveCfg = Release|Any CPU
 		{AA013943-D529-4DF3-B94D-EF11300440C1}.Release|x86.Build.0 = Release|Any CPU
+		{36677583-F838-4795-A667-4D8A1178EDD1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{36677583-F838-4795-A667-4D8A1178EDD1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{36677583-F838-4795-A667-4D8A1178EDD1}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{36677583-F838-4795-A667-4D8A1178EDD1}.Debug|x64.Build.0 = Debug|Any CPU
+		{36677583-F838-4795-A667-4D8A1178EDD1}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{36677583-F838-4795-A667-4D8A1178EDD1}.Debug|x86.Build.0 = Debug|Any CPU
+		{36677583-F838-4795-A667-4D8A1178EDD1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{36677583-F838-4795-A667-4D8A1178EDD1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{36677583-F838-4795-A667-4D8A1178EDD1}.Release|x64.ActiveCfg = Release|Any CPU
+		{36677583-F838-4795-A667-4D8A1178EDD1}.Release|x64.Build.0 = Release|Any CPU
+		{36677583-F838-4795-A667-4D8A1178EDD1}.Release|x86.ActiveCfg = Release|Any CPU
+		{36677583-F838-4795-A667-4D8A1178EDD1}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

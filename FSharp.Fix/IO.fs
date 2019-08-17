@@ -12,7 +12,7 @@ module IO =
     let FieldValueSeparator = '='
     let CheckSumTag = 10
 
-    let readField (stream:Stream) =
+    let readFieldFromStream (stream:Stream) =
     
         let readToken separator =
             seq { 
@@ -27,14 +27,14 @@ module IO =
         {   Tag = System.Int32.Parse(readToken FieldValueSeparator); 
             Value = readToken FieldDelimiter }
      
-    let readMessage (stream:Stream) =
+    let readMessageFromStream (stream:Stream) =
         
         let mutable checkSum = None
 
         let fields = 
             seq {
                 while true do
-                    let field = readField stream
+                    let field = readFieldFromStream stream
                     if field.Tag = CheckSumTag then
                         checkSum <- Some field
                         yield field
@@ -47,3 +47,31 @@ module IO =
         match checkSum with
         | Some field -> Ok { Fields = fields @ [field] }
         | None -> Ok { Fields = fields }
+
+    let readMessageFromBytes (data:byte[]) =
+        use stream = new MemoryStream(data)
+        readMessageFromStream stream
+
+    let readMessageFromString (data:string) =
+        let bytes = Encoding.UTF8.GetBytes(data)
+        readMessageFromBytes bytes
+
+    let parseMessageFromLogLine (line:string) =
+        match line.IndexOf("8=FIX.") with
+        | -1 -> Error ("Could not find a FIX message in " + line)
+        | index -> 
+            let data = line.Substring(index)
+            readMessageFromString data
+
+    let parseMessagesFromLog (stream:Stream) =
+        seq {
+            use reader = new StreamReader(stream)
+            while true do
+                yield reader.ReadLine()
+        }
+        |> Seq.takeWhile(String.IsNullOrEmpty >> not)
+        |> Seq.map parseMessageFromLogLine
+
+
+    let prettyPrint (message:Message) = 
+        printfn "%A" message
