@@ -56,6 +56,7 @@ module IO =
         let bytes = Encoding.UTF8.GetBytes(data)
         readMessageFromBytes bytes
 
+    // TODO - refactor this to make the message finder a parameter
     let parseMessageFromLogLine (line:string) =
         match line.IndexOf("8=FIX.") with
         | -1 -> Error ("Could not find a FIX message in " + line)
@@ -72,6 +73,17 @@ module IO =
         |> Seq.takeWhile(String.IsNullOrEmpty >> not)
         |> Seq.map parseMessageFromLogLine
 
+    type Repo = Repository< @"/Users/geh/Downloads/Repository" >
 
     let prettyPrint (message:Message) = 
-        printfn "%A" message
+        let builder = StringBuilder()
+        let fields = message.Fields |> Seq.map(fun field -> (field, Repo.FIX_4_4.nameOfFieldWithTag field.Tag))
+        let widestName = fields |> Seq.map(fun (field, name) -> name.Length) |> Seq.max
+        fields
+        |> Seq.iter(fun (field, name) -> 
+                builder.AppendFormat("{0} {1} - {2}\n", 
+                                     name.PadLeft(widestName), 
+                                     String.Format("({0})", field.Tag).PadLeft(6), 
+                                     field.Value) |> ignore
+        )
+        builder.ToString()

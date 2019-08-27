@@ -26,10 +26,41 @@ type RepositoryProvider (config : TypeProviderConfig) as this =
             let versionName = Path.GetFileName(directory).Replace(".", "_");
             let versionType = ProvidedTypeDefinition(thisAssembly, namespaceName, versionName, Some typeof<obj>)
             let version = loadVersion directory
-            createEnums namespaceName thisAssembly version |> Seq.iter(fun value -> versionType.AddMember(value))
-            createDataTypes namespaceName thisAssembly version |> Seq.iter(fun value -> versionType.AddMember(value))
-            createFields namespaceName thisAssembly version |> Seq.iter(fun value -> versionType.AddMember(value))
-            createMessages namespaceName thisAssembly version |> Seq.iter(fun value -> versionType.AddMember(value))
+            createEnums namespaceName thisAssembly version |> Seq.iter versionType.AddMember
+            createDataTypes namespaceName thisAssembly version |> Seq.iter versionType.AddMember
+            createFields namespaceName thisAssembly version |> Seq.iter versionType.AddMember
+            createMessages namespaceName thisAssembly version |> Seq.iter versionType.AddMember
+
+            // This is hack - ideally we need a couple of things, I can do 1 or 2 but not both on the same type.
+            // 1. The ability to treat Fields like a seq
+            // 2. The ability to have Fields properties for each Field. Fields.MsgType etc.
+            // Will probably add helper methods to avoid linear search but the above is useful as well.
+            
+            // Transform the field list into an array so we can do constant time lookups using the tag as an index.
+            // There is no 0 tag and there are gaps in the sequence so insert blanks.
+            let fieldNames = 
+                version.Fields 
+                |> Seq.sortBy(fun field -> field.Tag) 
+                |> Seq.fold(fun (lastTag, names) field -> 
+                    let gapFillers = if field.Tag - lastTag > 1 then [ for _ in lastTag .. field.Tag - 2 -> "" ] else []
+                    (field.Tag, names @ gapFillers @ [field.Name])) 
+                    (-1, []) 
+                |> snd
+                |> Seq.toArray
+
+            ProvidedMethod(
+                methodName = "nameOfFieldWithTag",
+                parameters = [ProvidedParameter(parameterName = "tag", parameterType = typeof<int>)],
+                returnType = typeof<string>,
+                invokeCode = (fun args -> 
+                    <@@ 
+                        let tag = (unbox<int> (%%(args.[0]) : int)) 
+                        let name = if tag >= fieldNames.Length then "" else fieldNames.[ tag ] 
+                        name
+                    @@>),
+                isStatic = true)
+            |> versionType.AddMember
+
             ty.AddMember(versionType)
         ty
     

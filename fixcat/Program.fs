@@ -12,6 +12,7 @@ let main argv =
         | Ok message -> Some message
         | Error _ -> None)
     |> Seq.choose id
-    |> Seq.iter prettyPrint
-  
+    |> Seq.map prettyPrint
+    |> Seq.iter Console.WriteLine
+    
     0 // return an integer exit code
