@@ -54,7 +54,33 @@ repo.FIX_4_4.Messages.MarketDataSnapshotFullRefresh.Fields
 
 # FSharp.Fix
 
+    readFieldFromStream: 
+        stream: Stream 
+            -> Field
 
+    readMessageFromStream: 
+        stream: Stream 
+            -> Result<Message,'a>
+
+    readMessageFromBytes: 
+        data: byte [] 
+            -> Result<Message,'a>
+
+    readMessageFromString: 
+        data: string 
+            -> Result<Message,'a>
+
+    parseMessageFromLogLine: 
+        line: string 
+            -> Result<Message,string>
+
+    parseMessagesFromLog: 
+        stream: Stream 
+            -> seq<Result<Message,string>>
+
+    prettyPrint: 
+        message: Message 
+            -> string
 
 # fixcat
 
