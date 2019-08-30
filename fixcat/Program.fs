@@ -4,13 +4,13 @@ open FSharp.Fix
 
 let catStream stream = 
     parseMessagesFromLog stream
-        |> Seq.map(fun result -> 
-            match result with 
-            | Ok message -> Some message
-            | Error _ -> None)
-        |> Seq.choose id
-        |> Seq.map prettyPrint
-        |> Seq.iter Console.WriteLine
+    |> Seq.map(fun result -> 
+        match result with 
+        | Ok message -> Some message
+        | Error _ -> None)
+    |> Seq.choose id
+    |> Seq.map prettyPrint
+    |> Seq.iter Console.WriteLine
 
 [<EntryPoint>]
 let main argv =
