@@ -11,9 +11,6 @@ repo.FIX_4_0.Messages.ExecutionReport.Fields.[4].Name
 repo.FIX_4_4.Messages.MarketDataSnapshotFullRefresh.Fields 
 |> Seq.iter(fun field -> printfn "%*s %s (%i) %b" (field.Indent * 4) " " field.Name field.Tag field.Required)
 
-
-  
-
 repo.FIX_4_0.Messages.ExecutionReport.Fields.[0]
 
 repo.FIX_4_0.Messages.ExecutionReport.MsgType
@@ -36,6 +33,7 @@ repo.FIX_4_0.Messages.OrderSingle.Description
 
 repo.FIX_4_0.Messages.TestRequest.Fields.DeliverToCompID.Description
 
+repo.FIX_4_0.nameOfFieldWithTag 100
 
 
 

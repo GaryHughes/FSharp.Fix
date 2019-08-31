@@ -73,10 +73,20 @@ module IO =
         |> Seq.takeWhile(String.IsNullOrEmpty >> not)
         |> Seq.map parseMessageFromLogLine
 
+    // TODO - need to parameterise this somehow, can we pass the type or do we need to pass lookup functions and do it indirectly?
     type Repo = Repository< @"/Users/geh/Downloads/Repository" >
 
     let prettyPrint (message:Message) = 
+        
         let builder = StringBuilder()
+
+        // let messageName = 
+        //      match message.Fields |> Seq.tryFind(fun field -> field.Tag = Repo.FIX_4_4.Fields.MsgType.Tag) with
+        //      | Some msgType -> Repo.FIX_4_4.nameOfMessageWithMsgType msgType.Value
+        //      | None -> "None"
+
+        // builder.AppendFormat("{0}\n{\n", messageName) |> ignore
+
         let fields = message.Fields |> Seq.map(fun field -> (field, Repo.FIX_4_4.nameOfFieldWithTag field.Tag))
         let widestName = fields |> Seq.map(fun (field, name) -> name.Length) |> Seq.max
         fields
@@ -86,4 +96,7 @@ module IO =
                                      String.Format("({0})", field.Tag).PadLeft(6), 
                                      field.Value) |> ignore
         )
+
+        builder.Append("}\n") |> ignore
+
         builder.ToString()

@@ -4,6 +4,7 @@ open System.IO
 open System.Reflection
 open ProviderImplementation.ProvidedTypes
 open FSharp.Core.CompilerServices
+open FSharp.Quotations
 open Repository.Xml.Version
 open Repository.Enum
 open Repository.DataType
@@ -12,7 +13,7 @@ open Repository.Message
   
 [<TypeProvider>]
 type RepositoryProvider (config : TypeProviderConfig) as this =
-    inherit TypeProviderForNamespaces (config, assemblyReplacementMap=[("FSharp.Fix.DesignTime", "FSharp.Fix")], addDefaultProbingLocation=true)
+    inherit TypeProviderForNamespaces (config, assemblyReplacementMap=[("FSharp.Fix.Repository.DesignTime", "FSharp.Fix.Repository")], addDefaultProbingLocation=true)
    
     let namespaceName = "FSharp.Fix"
     let thisAssembly = Assembly.GetExecutingAssembly()
@@ -55,11 +56,33 @@ type RepositoryProvider (config : TypeProviderConfig) as this =
                 invokeCode = (fun args -> 
                     <@@ 
                         let tag = (unbox<int> (%%(args.[0]) : int)) 
-                        let name = if tag >= fieldNames.Length then "" else fieldNames.[ tag ] 
-                        name
+                        if tag >= fieldNames.Length then "" else fieldNames.[ tag ] 
                     @@>),
                 isStatic = true)
             |> versionType.AddMember
+
+            // Provide a method to map a MsgType to a name.
+            // let messageNames = 
+            //     version.Messages
+            //     |> Seq.map(fun message -> (message.MsgType, message.Name))
+            //     |> Seq.toArray
+
+            // let nameOfMessage desiredMsgType =
+            //     match messageNames |> Seq.tryFind(fun (msgType, name) -> msgType = desiredMsgType) with
+            //     | Some (msgType, name) -> name
+            //     | None -> "Unknown"
+        
+            // ProvidedMethod(
+            //     methodName = "nameOfMessageWithMsgType",
+            //     parameters = [ProvidedParameter(parameterName = "msgType", parameterType = typeof<string>)],
+            //     returnType = typeof<string>,
+            //     invokeCode = (fun args ->
+            //     <@@
+            //         let desiredMsgType = (unbox<string> (%%(args.[0]) : string))
+            //         nameOfMessage desiredMsgType
+            //     @@>),
+            //     isStatic = true    
+            // ) |> versionType.AddMember
 
             ty.AddMember(versionType)
         ty
