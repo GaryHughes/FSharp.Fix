@@ -5,9 +5,15 @@ This is/will be an F# implementation of the FIX protocol described at fixtrading
 
 It is a vehicle for me to learn F# in a problem domain I'm very familiar with. Code quality will be variable and probably full of silly things while I learn the language.
 
+# FSharp.Fix.Orchestra
+
+This is a Type Provider for the fixtrading.org Orchestra standard.
+
+
+
 # FSharp.Fix.Repository
 
-This is a Type Provider for the fixtrading.org XML repository.
+This is a Type Provider for the fixtrading.org repository standard.
 
 Download one or more repositories from fixtrading.org and unpack them into a common parent so you end up with a structure like the following.
 

@@ -1,0 +1,823 @@
+<?xml version="1.0" encoding="UTF-8"?><!--
+DISCLAIMER
+
+THE INFORMATION CONTAINED HEREIN AND THE FINANCIAL INFORMATION EXCHANGE PROTOCOL (COLLECTIVELY, THE "FIX PROTOCOL") ARE PROVIDED "AS IS" AND NO PERSON OR ENTITY ASSOCIATED WITH THE FIX PROTOCOL MAKES ANY REPRESENTATION OR WARRANTY, EXPRESS OR IMPLIED, AS TO THE FIX PROTOCOL (OR THE RESULTS TO BE OBTAINED BY THE USE THEREOF) OR ANY OTHER MATTER AND EACH SUCH PERSON AND ENTITY SPECIFICALLY DISCLAIMS ANY WARRANTY OF ORIGINALITY, ACCURACY, COMPLETENESS, MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE. SUCH PERSONS AND ENTITIES DO NOT WARRANT THAT THE FIX PROTOCOL WILL CONFORM TO ANY DESCRIPTION THEREOF OR BE FREE OF ERRORS. THE ENTIRE RISK OF ANY USE OF THE FIX PROTOCOL IS ASSUMED BY THE USER.
+
+NO PERSON OR ENTITY ASSOCIATED WITH THE FIX PROTOCOL SHALL HAVE ANY LIABILITY FOR DAMAGES OF ANY KIND ARISING IN ANY MANNER OUT OF OR IN CONNECTION WITH ANY USER'S USE OF (OR ANY INABILITY TO USE) THE FIX PROTOCOL, WHETHER DIRECT, INDIRECT, INCIDENTAL, SPECIAL OR CONSEQUENTIAL (INCLUDING, WITHOUT LIMITATION, LOSS OF DATA, LOSS OF USE, CLAIMS OF THIRD PARTIES OR LOST PROFITS OR REVENUES OR OTHER ECONOMIC LOSS), WHETHER IN TORT (INCLUDING NEGLIGENCE AND STRICT LIABILITY), CONTRACT OR OTHERWISE, WHETHER OR NOT ANY SUCH PERSON OR ENTITY HAS BEEN ADVISED OF, OR OTHERWISE MIGHT HAVE ANTICIPATED THE POSSIBILITY OF, SUCH DAMAGES.
+
+No proprietary or ownership interest of any kind is granted with respect to the FIX Protocol (or any rights therein).
+
+Copyright 2003-2009 FIX Protocol Limited, all rights reserved
+
+REPRODUCTION
+
+FIX Protocol Limited grants permission to print in hard copy form or reproduce the FIX Protocol specification in its entirety provided that the duplicated pages retain the "Copyright FIX Protocol Limited" statement at the bottom of the page.
+
+Portions of the FIX Protocol specification may be extracted or cited in other documents (such as a document which describes one's implementation of the FIX Protocol) provided that one reference the origin of the FIX Protocol specification (HTUhttp://www.fixprotocol.orgUTH) and that the specification itself is "Copyright FIX Protocol Limited".
+FIX Protocol Limited claims no intellectual property over one's implementation (programming code) of an application which implements the behavior and details from the FIX Protocol specification. 	
+--><Fields xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" copyright="Copyright (c) FIX Protocol Ltd. All Rights Reserved." edition="2010" version="FIX.4.0" xsi:noNamespaceSchemaLocation="../../schema/Fields.xsd" generated="2010-03-13T14:54:02-05:00">
+	<Field added="FIX.2.7">
+		    <Tag>1</Tag>
+		    <Name>Account</Name>
+		    <Type>String</Type>
+		    <AbbrName>Acct</AbbrName>
+		    <NotReqXML>0</NotReqXML>
+		    <Description>Account mnemonic as agreed between buy and sell sides, e.g. broker and institution or investor/intermediary and fund manager.</Description>
+	  </Field>
+   <Field added="FIX.2.7">
+		    <Tag>2</Tag>
+		    <Name>AdvId</Name>
+		    <Type>String</Type>
+		    <AbbrName>AdvId</AbbrName>
+		    <NotReqXML>0</NotReqXML>
+		    <Description>Unique identifier of advertisement message.
+(Prior to FIX 4.1 this field was of type int)</Description>
+	  </Field>
+   <Field added="FIX.2.7">
+		    <Tag>3</Tag>
+		    <Name>AdvRefID</Name>
+		    <Type>String</Type>
+		    <AbbrName>AdvRefID</AbbrName>
+		    <NotReqXML>0</NotReqXML>
+		    <Description>Reference identifier used with CANCEL and REPLACE transaction types.
+(Prior to FIX 4.1 this field was of type int)</Description>
+	  </Field>
+   <Field added="FIX.2.7">
+		    <Tag>4</Tag>
+		    <Name>AdvSide</Name>
+		    <Type>char</Type>
+		    <AbbrName>AdvSide</AbbrName>
+		    <NotReqXML>0</NotReqXML>
+		    <Description>Broker's side of advertised trade</Description>
+	  </Field>
+   <Field added="FIX.2.7">
+		    <Tag>5</Tag>
+		    <Name>AdvTransType</Name>
+		    <Type>String</Type>
+		    <AbbrName>AdvTransTyp</AbbrName>
+		    <NotReqXML>0</NotReqXML>
+		    <Description>Identifies advertisement message transaction type</Description>
+	  </Field>
+   <Field added="FIX.2.7">
+		    <Tag>6</Tag>
+		    <Name>AvgPx</Name>
+		    <Type>Price</Type>
+		    <AbbrName>AvgPx</AbbrName>
+		    <NotReqXML>0</NotReqXML>
+		    <Description>Calculated average price of all fills on this order.
+For Fixed Income trades AvgPx is always expressed as percent-of-par, regardless of the PriceType (423) of LastPx (31). I.e., AvgPx will contain an average of percent-of-par values (see LastParPx (669)) for issues traded in Yield, Spread or Discount.</Description>
+	  </Field>
+   <Field added="FIX.2.7">
+		    <Tag>7</Tag>
+		    <Name>BeginSeqNo</Name>
+		    <Type>SeqNum</Type>
+		    <AbbrName>BeginSeqNo</AbbrName>
+		    <NotReqXML>1</NotReqXML>
+		    <Description>Message sequence number of first message in range to be resent</Description>
+	  </Field>
+   <Field added="FIX.2.7" issue="SPEC-376">
+		    <Tag>8</Tag>
+		    <Name>BeginString</Name>
+		    <Type>String</Type>
+		    <AbbrName>BeginString</AbbrName>
+		    <NotReqXML>1</NotReqXML>
+		    <Description>Identifies beginning of new message and protocol version. ALWAYS FIRST FIELD IN MESSAGE. (Always unencrypted)
+Valid values:
+FIXT.1.1
+</Description>
+	  </Field>
+   <Field added="FIX.2.7">
+		    <Tag>9</Tag>
+		    <Name>BodyLength</Name>
+		    <Type>Length</Type>
+		    <AbbrName>BodyLength</AbbrName>
+		    <NotReqXML>1</NotReqXML>
+		    <Description>Message length, in bytes, forward to the CheckSum field. ALWAYS SECOND FIELD IN MESSAGE. (Always unencrypted)</Description>
+	  </Field>
+   <Field added="FIX.2.7">
+		    <Tag>10</Tag>
+		    <Name>CheckSum</Name>
+		    <Type>String</Type>
+		    <AbbrName>CheckSum</AbbrName>
+		    <NotReqXML>1</NotReqXML>
+		    <Description>Three byte, simple checksum (see Volume 2: "Checksum Calculation" for description). ALWAYS LAST FIELD IN MESSAGE; i.e. serves, with the trailing &lt;SOH&gt;, as the end-of-message delimiter. Always defined as three characters. (Always unencrypted)</Description>
+	  </Field>
+   <Field added="FIX.2.7">
+		    <Tag>11</Tag>
+		    <Name>ClOrdID</Name>
+		    <Type>String</Type>
+		    <AbbrName>ClOrdID</AbbrName>
+		    <BaseCategory>SingleGeneralOrderHandling</BaseCategory>
+		    <BaseCategoryAbbrName>ID</BaseCategoryAbbrName>
+		    <NotReqXML>0</NotReqXML>
+		    <Description>Unique identifier for Order as assigned by the buy-side (institution, broker, intermediary etc.) (identified by SenderCompID (49) or OnBehalfOfCompID (5) as appropriate). Uniqueness must be guaranteed within a single trading day. Firms, particularly those which electronically submit multi-day orders, trade globally or throughout market close periods, should ensure uniqueness across days, for example by embedding a date within the ClOrdID field.</Description>
+	  </Field>
+   <Field added="FIX.2.7">
+		    <Tag>12</Tag>
+		    <Name>Commission</Name>
+		    <Type>Amt</Type>
+		    <AbbrName>Comm</AbbrName>
+		    <NotReqXML>0</NotReqXML>
+		    <Description>Commission. Note if CommType (13) is percentage, Commission of 5% should be represented as .05.</Description>
+	  </Field>
+   <Field added="FIX.2.7" updated="FIX.5.0SP2" updatedEP="204">
+      <Tag>13</Tag>
+      <Name>CommType</Name>
+      <Type>char</Type>
+      <AbbrName>CommTyp</AbbrName>
+      <NotReqXML>0</NotReqXML>
+      <Description>Specifies the basis or unit used to calculate the total commission based on the rate.</Description>
+   </Field>
+   <Field added="FIX.2.7">
+		    <Tag>14</Tag>
+		    <Name>CumQty</Name>
+		    <Type>Qty</Type>
+		    <AbbrName>CumQty</AbbrName>
+		    <NotReqXML>0</NotReqXML>
+		    <Description>Total quantity (e.g. number of shares) filled.
+(Prior to FIX 4.2 this field was of type int)</Description>
+	  </Field>
+   <Field added="FIX.2.7">
+		    <Tag>15</Tag>
+		    <Name>Currency</Name>
+		    <Type>Currency</Type>
+		    <AbbrName>Ccy</AbbrName>
+		    <NotReqXML>0</NotReqXML>
+		    <Description>Identifies currency used for price. Absence of this field is interpreted as the default for the security. It is recommended that systems provide the currency value whenever possible. See "Appendix 6-A: Valid Currency Codes" for information on obtaining valid values.</Description>
+	  </Field>
+   <Field added="FIX.2.7">
+		    <Tag>16</Tag>
+		    <Name>EndSeqNo</Name>
+		    <Type>SeqNum</Type>
+		    <AbbrName>EndSeqNo</AbbrName>
+		    <NotReqXML>1</NotReqXML>
+		    <Description>Message sequence number of last message in range to be resent. If request is for a single message BeginSeqNo (7) = EndSeqNo. If request is for all messages subsequent to a particular message, EndSeqNo = "0" (representing infinity).</Description>
+	  </Field>
+   <Field updated="FIX.5.0SP1" updatedEP="95" added="FIX.2.7">
+		    <Tag>17</Tag>
+		    <Name>ExecID</Name>
+		    <Type>String</Type>
+		    <AbbrName>ExecID</AbbrName>
+		    <NotReqXML>0</NotReqXML>
+		    <Description>Unique identifier of execution message as assigned by sell-side (broker, exchange, ECN) (will be 0 (zero) for ExecType (150)=I (Order Status)).
+Uniqueness must be guaranteed within a single trading day or the life of a multi-day order. Firms which accept multi-day orders should consider embedding a date within the ExecID field to assure uniqueness across days.
+(Prior to FIX 4.1 this field was of type int).</Description>
+	  </Field>
+   <Field added="FIX.2.7">
+		    <Tag>18</Tag>
+		    <Name>ExecInst</Name>
+		    <Type>MultipleCharValue</Type>
+		    <AbbrName>ExecInst</AbbrName>
+		    <NotReqXML>0</NotReqXML>
+		    <Description>Instructions for order handling on exchange trading floor. If more than one instruction is applicable to an order, this field can contain multiple instructions separated by space. *** SOME VALUES HAVE BEEN REPLACED - See "Replaced Features and Supported Approach" *** (see Volume : "Glossary" for value definitions)</Description>
+	  </Field>
+   <Field added="FIX.2.7">
+		    <Tag>19</Tag>
+		    <Name>ExecRefID</Name>
+		    <Type>String</Type>
+		    <AbbrName>ExecRefID</AbbrName>
+		    <NotReqXML>0</NotReqXML>
+		    <Description>Reference identifier used with Trade, Trade Cancel and Trade Correct execution types.
+(Prior to FIX 4.1 this field was of type int)</Description>
+	  </Field>
+   <Field added="FIX.2.7">
+		    <Tag>21</Tag>
+		    <Name>HandlInst</Name>
+		    <Type>char</Type>
+		    <AbbrName>HandlInst</AbbrName>
+		    <NotReqXML>0</NotReqXML>
+		    <Description>Instructions for order handling on Broker trading floor</Description>
+	  </Field>
+   <Field added="FIX.2.7" updated="FIX.5.0SP2" updatedEP="161">
+      <Tag>22</Tag>
+      <Name>SecurityIDSource</Name>
+      <Type>String</Type>
+      <AbbrName>Src</AbbrName>
+      <NotReqXML>0</NotReqXML>
+      <UnionDataType>Reserved100Plus</UnionDataType>
+      <Description>Identifies class or source of the SecurityID(48) value. </Description>
+   </Field>
+   <Field added="FIX.2.7">
+		    <Tag>23</Tag>
+		    <Name>IOIID</Name>
+		    <Type>String</Type>
+		    <AbbrName>IOIID</AbbrName>
+		    <BaseCategory>Indication</BaseCategory>
+		    <BaseCategoryAbbrName>ID</BaseCategoryAbbrName>
+		    <NotReqXML>0</NotReqXML>
+		    <Description>Unique identifier of IOI message.
+(Prior to FIX 4.1 this field was of type int)</Description>
+	  </Field>
+   <Field added="FIX.2.7">
+		    <Tag>25</Tag>
+		    <Name>IOIQltyInd</Name>
+		    <Type>char</Type>
+		    <AbbrName>QltyInd</AbbrName>
+		    <NotReqXML>0</NotReqXML>
+		    <Description>Relative quality of indication</Description>
+	  </Field>
+   <Field added="FIX.2.7">
+		    <Tag>26</Tag>
+		    <Name>IOIRefID</Name>
+		    <Type>String</Type>
+		    <AbbrName>RefID</AbbrName>
+		    <NotReqXML>0</NotReqXML>
+		    <Description>Reference identifier used with CANCEL and REPLACE, transaction types.
+(Prior to FIX 4.1 this field was of type int)</Description>
+	  </Field>
+   <Field added="FIX.2.7">
+		    <Tag>27</Tag>
+		    <Name>IOIQty</Name>
+		    <Type>String</Type>
+		    <AbbrName>Qty</AbbrName>
+		    <NotReqXML>0</NotReqXML>
+		    <UnionDataType>Qty</UnionDataType>
+		    <Description>Quantity (e.g. number of shares) in numeric form or relative size.</Description>
+	  </Field>
+   <Field added="FIX.2.7">
+		    <Tag>28</Tag>
+		    <Name>IOITransType</Name>
+		    <Type>char</Type>
+		    <AbbrName>TransTyp</AbbrName>
+		    <NotReqXML>0</NotReqXML>
+		    <Description>Identifies IOI message transaction type</Description>
+	  </Field>
+   <Field added="FIX.2.7">
+		    <Tag>29</Tag>
+		    <Name>LastCapacity</Name>
+		    <Type>char</Type>
+		    <AbbrName>LastCpcty</AbbrName>
+		    <NotReqXML>0</NotReqXML>
+		    <Description>Broker capacity in order execution</Description>
+	  </Field>
+   <Field added="FIX.2.7" updated="FIX.5.0SP2" updatedEP="228">
+      <Tag>30</Tag>
+      <Name>LastMkt</Name>
+      <Type>Exchange</Type>
+      <AbbrName>LastMkt</AbbrName>
+      <NotReqXML>0</NotReqXML>
+      <Description>Market of execution for last fill, or an indication of the market where an order was routed
+Valid values:
+See "Appendix 6-C"</Description>
+      <Elaboration>In the context of ESMA RTS 1 Annex I, Table 3, Field 6 "Venue of Execution" it is required that the "venue where the transaction was executed" be identified using ISO 10383 (MIC).  Additionally, ESMA requires the use of "MIC code 'XOFF' for financial instruments admitted to trading or traded on a trading venue, where the transaction on that financial instrument is not executed on a trading venue, systematic internaliser or organized trading platform outside of the Union.  Use 'SINT' for financial instruments admitted to trading or traded on a trading venue, where the transaction is executed on a systematic internaliser."</Elaboration>
+   </Field>
+   <Field added="FIX.2.7">
+		    <Tag>31</Tag>
+		    <Name>LastPx</Name>
+		    <Type>Price</Type>
+		    <AbbrName>LastPx</AbbrName>
+		    <NotReqXML>0</NotReqXML>
+		    <Description>Price of this (last) fill.</Description>
+	  </Field>
+   <Field added="FIX.2.7">
+		    <Tag>32</Tag>
+		    <Name>LastQty</Name>
+		    <Type>Qty</Type>
+		    <AbbrName>LastQty</AbbrName>
+		    <NotReqXML>0</NotReqXML>
+		    <Description>Quantity (e.g. shares) bought/sold on this (last) fill.
+(Prior to FIX 4.2 this field was of type int)</Description>
+	  </Field>
+   <Field added="FIX.2.7">
+		    <Tag>33</Tag>
+		    <Name>NoLinesOfText</Name>
+		    <Type>NumInGroup</Type>
+		    <AbbrName>NoLinesOfText</AbbrName>
+		    <NotReqXML>1</NotReqXML>
+		    <Description>Identifies number of lines of text body</Description>
+	  </Field>
+   <Field added="FIX.2.7">
+		    <Tag>34</Tag>
+		    <Name>MsgSeqNum</Name>
+		    <Type>SeqNum</Type>
+		    <AbbrName>SeqNum</AbbrName>
+		    <NotReqXML>0</NotReqXML>
+		    <Description>Integer message sequence number.</Description>
+	  </Field>
+   <Field added="FIX.2.7">
+		    <Tag>35</Tag>
+		    <Name>MsgType</Name>
+		    <Type>String</Type>
+		    <AbbrName>MsgTyp</AbbrName>
+		    <NotReqXML>0</NotReqXML>
+		    <Description>Defines message type ALWAYS THIRD FIELD IN MESSAGE. (Always unencrypted)
+Note: A "U" as the first character in the MsgType field (i.e. U, U2, etc) indicates that the message format is privately defined between the sender and receiver.
+*** Note the use of lower case letters ***</Description>
+	  </Field>
+   <Field added="FIX.2.7">
+		    <Tag>36</Tag>
+		    <Name>NewSeqNo</Name>
+		    <Type>SeqNum</Type>
+		    <AbbrName>NewSeqNo</AbbrName>
+		    <NotReqXML>1</NotReqXML>
+		    <Description>New sequence number</Description>
+	  </Field>
+   <Field added="FIX.2.7">
+		    <Tag>37</Tag>
+		    <Name>OrderID</Name>
+		    <Type>String</Type>
+		    <AbbrName>OrdID</AbbrName>
+		    <NotReqXML>0</NotReqXML>
+		    <Description>Unique identifier for Order as assigned by sell-side (broker, exchange, ECN). Uniqueness must be guaranteed within a single trading day. Firms which accept multi-day orders should consider embedding a date within the OrderID field to assure uniqueness across days.</Description>
+	  </Field>
+   <Field added="FIX.2.7">
+		    <Tag>38</Tag>
+		    <Name>OrderQty</Name>
+		    <Type>Qty</Type>
+		    <AbbrName>Qty</AbbrName>
+		    <NotReqXML>0</NotReqXML>
+		    <Description>Quantity ordered. This represents the number of shares for equities or par, face or nominal value for FI instruments.
+(Prior to FIX 4.2 this field was of type int)</Description>
+	  </Field>
+   <Field added="FIX.2.7">
+		    <Tag>39</Tag>
+		    <Name>OrdStatus</Name>
+		    <Type>char</Type>
+		    <AbbrName>OrdStat</AbbrName>
+		    <BaseCategory>SingleGeneralOrderHandling</BaseCategory>
+		    <BaseCategoryAbbrName>Stat</BaseCategoryAbbrName>
+		    <NotReqXML>0</NotReqXML>
+		    <Description>Identifies current status of order. *** SOME VALUES HAVE BEEN REPLACED - See "Replaced Features and Supported Approach" *** (see Volume : "Glossary" for value definitions)</Description>
+	  </Field>
+   <Field added="FIX.2.7">
+		    <Tag>40</Tag>
+		    <Name>OrdType</Name>
+		    <Type>char</Type>
+		    <AbbrName>OrdTyp</AbbrName>
+		    <BaseCategory>SingleGeneralOrderHandling</BaseCategory>
+		    <BaseCategoryAbbrName>Typ</BaseCategoryAbbrName>
+		    <NotReqXML>0</NotReqXML>
+		    <Description>Order type. *** SOME VALUES ARE NO LONGER USED - See "Deprecated (Phased-out) Features and Supported Approach" *** (see Volume : "Glossary" for value definitions)</Description>
+	  </Field>
+   <Field added="FIX.2.7">
+		    <Tag>41</Tag>
+		    <Name>OrigClOrdID</Name>
+		    <Type>String</Type>
+		    <AbbrName>OrigClOrdID</AbbrName>
+		    <BaseCategory>SingleGeneralOrderHandling</BaseCategory>
+		    <BaseCategoryAbbrName>OrigID</BaseCategoryAbbrName>
+		    <NotReqXML>0</NotReqXML>
+		    <Description>ClOrdID (11) of the previous order (NOT the initial order of the day) as assigned by the institution, used to identify the previous order in cancel and cancel/replace requests.</Description>
+	  </Field>
+   <Field added="FIX.2.7">
+		    <Tag>42</Tag>
+		    <Name>OrigTime</Name>
+		    <Type>UTCTimestamp</Type>
+		    <AbbrName>OrigTm</AbbrName>
+		    <NotReqXML>0</NotReqXML>
+		    <Description>Time of message origination (always expressed in UTC (Universal Time Coordinated, also known as "GMT"))</Description>
+	  </Field>
+   <Field added="FIX.2.7">
+		    <Tag>43</Tag>
+		    <Name>PossDupFlag</Name>
+		    <Type>Boolean</Type>
+		    <AbbrName>PosDup</AbbrName>
+		    <NotReqXML>0</NotReqXML>
+		    <Description>Indicates possible retransmission of message with this sequence number</Description>
+	  </Field>
+   <Field added="FIX.2.7">
+		    <Tag>44</Tag>
+		    <Name>Price</Name>
+		    <Type>Price</Type>
+		    <AbbrName>Px</AbbrName>
+		    <NotReqXML>0</NotReqXML>
+		    <Description>Price per unit of quantity (e.g. per share)</Description>
+	  </Field>
+   <Field added="FIX.2.7">
+		    <Tag>45</Tag>
+		    <Name>RefSeqNum</Name>
+		    <Type>SeqNum</Type>
+		    <AbbrName>RefSeqNum</AbbrName>
+		    <NotReqXML>0</NotReqXML>
+		    <Description>Reference message sequence number</Description>
+	  </Field>
+   <Field added="FIX.2.7">
+		    <Tag>48</Tag>
+		    <Name>SecurityID</Name>
+		    <Type>String</Type>
+		    <AbbrName>ID</AbbrName>
+		    <NotReqXML>0</NotReqXML>
+		    <Description>Security identifier value of SecurityIDSource (22) type (e.g. CUSIP, SEDOL, ISIN, etc). Requires SecurityIDSource.</Description>
+	  </Field>
+   <Field added="FIX.2.7">
+		    <Tag>49</Tag>
+		    <Name>SenderCompID</Name>
+		    <Type>String</Type>
+		    <AbbrName>SID</AbbrName>
+		    <NotReqXML>0</NotReqXML>
+		    <Description>Assigned value used to identify firm sending message.</Description>
+	  </Field>
+   <Field added="FIX.2.7">
+		    <Tag>50</Tag>
+		    <Name>SenderSubID</Name>
+		    <Type>String</Type>
+		    <AbbrName>SSub</AbbrName>
+		    <NotReqXML>0</NotReqXML>
+		    <Description>Assigned value used to identify specific message originator (desk, trader, etc.)</Description>
+	  </Field>
+   <Field added="FIX.2.7">
+		    <Tag>52</Tag>
+		    <Name>SendingTime</Name>
+		    <Type>UTCTimestamp</Type>
+		    <AbbrName>Snt</AbbrName>
+		    <NotReqXML>0</NotReqXML>
+		    <Description>Time of message transmission (always expressed in UTC (Universal Time Coordinated, also known as "GMT")</Description>
+	  </Field>
+   <Field added="FIX.2.7">
+		    <Tag>53</Tag>
+		    <Name>Quantity</Name>
+		    <Type>Qty</Type>
+		    <AbbrName>Qty</AbbrName>
+		    <NotReqXML>0</NotReqXML>
+		    <Description>Overall/total quantity (e.g. number of shares)
+(Prior to FIX 4.2 this field was of type int)</Description>
+	  </Field>
+   <Field added="FIX.2.7">
+		    <Tag>54</Tag>
+		    <Name>Side</Name>
+		    <Type>char</Type>
+		    <AbbrName>Side</AbbrName>
+		    <NotReqXML>0</NotReqXML>
+		    <Description>Side of order (see Volume : "Glossary" for value definitions)</Description>
+	  </Field>
+   <Field added="FIX.2.7">
+		    <Tag>55</Tag>
+		    <Name>Symbol</Name>
+		    <Type>String</Type>
+		    <AbbrName>Sym</AbbrName>
+		    <NotReqXML>0</NotReqXML>
+		    <Description>Ticker symbol. Common, "human understood" representation of the security. SecurityID (48) value can be specified if no symbol exists (e.g. non-exchange traded Collective Investment Vehicles)
+Use "[N/A]" for products which do not have a symbol.</Description>
+	  </Field>
+   <Field added="FIX.2.7">
+		    <Tag>56</Tag>
+		    <Name>TargetCompID</Name>
+		    <Type>String</Type>
+		    <AbbrName>TID</AbbrName>
+		    <NotReqXML>0</NotReqXML>
+		    <Description>Assigned value used to identify receiving firm.</Description>
+	  </Field>
+   <Field added="FIX.2.7">
+		    <Tag>57</Tag>
+		    <Name>TargetSubID</Name>
+		    <Type>String</Type>
+		    <AbbrName>TSub</AbbrName>
+		    <NotReqXML>0</NotReqXML>
+		    <Description>Assigned value used to identify specific individual or unit intended to receive message. "ADMIN" reserved for administrative messages not intended for a specific user.</Description>
+	  </Field>
+   <Field added="FIX.2.7">
+		    <Tag>58</Tag>
+		    <Name>Text</Name>
+		    <Type>String</Type>
+		    <AbbrName>Txt</AbbrName>
+		    <NotReqXML>0</NotReqXML>
+		    <Description>Free format text string
+(Note: this field does not have a specified maximum length)</Description>
+	  </Field>
+   <Field added="FIX.2.7">
+		    <Tag>59</Tag>
+		    <Name>TimeInForce</Name>
+		    <Type>char</Type>
+		    <AbbrName>TmInForce</AbbrName>
+		    <NotReqXML>0</NotReqXML>
+		    <Description>Specifies how long the order remains in effect. Absence of this field is interpreted as DAY. NOTE not applicable to CIV Orders. (see Volume : "Glossary" for value definitions)</Description>
+	  </Field>
+   <Field updated="FIX.5.0SP1" updatedEP="94" added="FIX.2.7">
+		    <Tag>60</Tag>
+		    <Name>TransactTime</Name>
+		    <Type>UTCTimestamp</Type>
+		    <AbbrName>TxnTm</AbbrName>
+		    <NotReqXML>0</NotReqXML>
+		    <Description>Timestamp when the business transaction represented by the message occurred.</Description>
+	  </Field>
+   <Field added="FIX.2.7">
+		    <Tag>61</Tag>
+		    <Name>Urgency</Name>
+		    <Type>char</Type>
+		    <AbbrName>Urgency</AbbrName>
+		    <NotReqXML>0</NotReqXML>
+		    <Description>Urgency flag</Description>
+	  </Field>
+   <Field added="FIX.2.7">
+		    <Tag>62</Tag>
+		    <Name>ValidUntilTime</Name>
+		    <Type>UTCTimestamp</Type>
+		    <AbbrName>ValidUntilTm</AbbrName>
+		    <NotReqXML>0</NotReqXML>
+		    <Description>Indicates expiration time of indication message (always expressed in UTC (Universal Time Coordinated, also known as "GMT")</Description>
+	  </Field>
+   <Field added="FIX.2.7">
+		    <Tag>63</Tag>
+		    <Name>SettlType</Name>
+		    <Type>String</Type>
+		    <AbbrName>SettlTyp</AbbrName>
+		    <NotReqXML>0</NotReqXML>
+		    <UnionDataType>Tenor</UnionDataType>
+		    <Description>Indicates order settlement period. If present, SettlDate (64) overrides this field. If both SettlType (63) and SettDate (64) are omitted, the default for SettlType (63) is 0 (Regular)
+Regular is defined as the default settlement period for the particular security on the exchange of execution.
+In Fixed Income the contents of this field may influence the instrument definition if the SecurityID (48) is ambiguous. In the US an active Treasury offering may be re-opened, and for a time one CUSIP will apply to both the current and "when-issued" securities. Supplying a value of "7" clarifies the instrument description; any other value or the absence of this field should cause the respondent to default to the active issue.
+Additionally the following patterns may be uses as well as enum values
+Dx = FX tenor expression for "days", e.g. "D5", where "x" is any integer &gt; 0
+Mx = FX tenor expression for "months", e.g. "M3", where "x" is any integer &gt; 0
+Wx = FX tenor expression for "weeks", e.g. "W13", where "x" is any integer &gt; 0
+Yx = FX tenor expression for "years", e.g. "Y1", where "x" is any integer &gt; 0
+Noted that for FX the tenors expressed using Dx, Mx, Wx, and Yx values do not denote business days, but calendar days.</Description>
+	  </Field>
+   <Field added="FIX.2.7">
+		    <Tag>64</Tag>
+		    <Name>SettlDate</Name>
+		    <Type>LocalMktDate</Type>
+		    <AbbrName>SettlDt</AbbrName>
+		    <NotReqXML>0</NotReqXML>
+		    <Description>Specific date of trade settlement (SettlementDate) in YYYYMMDD format.
+If present, this field overrides SettlType (63). This field is required if the value of SettlType (63) is 6 (Future) or 8 (Sellers Option). This field must be omitted if the value of SettlType (63) is 7 (When and If Issued)
+(expressed in local time at place of settlement)</Description>
+	  </Field>
+   <Field added="FIX.2.7">
+		    <Tag>65</Tag>
+		    <Name>SymbolSfx</Name>
+		    <Type>String</Type>
+		    <AbbrName>Sfx</AbbrName>
+		    <NotReqXML>0</NotReqXML>
+		    <Description>Additional information about the security (e.g. preferred, warrants, etc.). Note also see SecurityType (167).
+As defined in the NYSE Stock and bond Symbol Directory and in the AMEX Fitch Directory.</Description>
+	  </Field>
+   <Field added="FIX.2.7">
+		    <Tag>66</Tag>
+		    <Name>ListID</Name>
+		    <Type>String</Type>
+		    <AbbrName>ListID</AbbrName>
+		    <BaseCategory>ProgramTrading</BaseCategory>
+		    <BaseCategoryAbbrName>ID</BaseCategoryAbbrName>
+		    <NotReqXML>0</NotReqXML>
+		    <Description>Unique identifier for list as assigned by institution, used to associate multiple individual orders. Uniqueness must be guaranteed within a single trading day. Firms which generate multi-day orders should consider embedding a date within the ListID field to assure uniqueness across days.</Description>
+	  </Field>
+   <Field added="FIX.2.7">
+		    <Tag>67</Tag>
+		    <Name>ListSeqNo</Name>
+		    <Type>int</Type>
+		    <AbbrName>ListSeqNo</AbbrName>
+		    <BaseCategory>ProgramTrading</BaseCategory>
+		    <BaseCategoryAbbrName>SeqNo</BaseCategoryAbbrName>
+		    <NotReqXML>0</NotReqXML>
+		    <Description>Sequence of individual order within list (i.e. ListSeqNo of TotNoOrders (68), 2 of 25, 3 of 25, . . . )</Description>
+	  </Field>
+   <Field added="FIX.2.7">
+		    <Tag>68</Tag>
+		    <Name>TotNoOrders</Name>
+		    <Type>int</Type>
+		    <AbbrName>TotNoOrds</AbbrName>
+		    <NotReqXML>0</NotReqXML>
+		    <Description>Total number of list order entries across all messages. Should be the sum of all NoOrders (73) in each message that has repeating list order entries related to the same ListID (66). Used to support fragmentation.
+(Prior to FIX 4.2 this field was named "ListNoOrds")</Description>
+	  </Field>
+   <Field added="FIX.2.7">
+		    <Tag>69</Tag>
+		    <Name>ListExecInst</Name>
+		    <Type>String</Type>
+		    <AbbrName>ListExecInst</AbbrName>
+		    <NotReqXML>0</NotReqXML>
+		    <Description>Free format text message containing list handling and execution instructions.</Description>
+	  </Field>
+   <Field added="FIX.2.7">
+		    <Tag>70</Tag>
+		    <Name>AllocID</Name>
+		    <Type>String</Type>
+		    <AbbrName>AllocID</AbbrName>
+		    <BaseCategory>Allocation</BaseCategory>
+		    <BaseCategoryAbbrName>ID</BaseCategoryAbbrName>
+		    <NotReqXML>0</NotReqXML>
+		    <Description>Unique identifier for allocation message.
+(Prior to FIX 4.1 this field was of type int)</Description>
+	  </Field>
+   <Field added="FIX.2.7">
+		    <Tag>71</Tag>
+		    <Name>AllocTransType</Name>
+		    <Type>char</Type>
+		    <AbbrName>TransTyp</AbbrName>
+		    <NotReqXML>0</NotReqXML>
+		    <Description>Identifies allocation transaction type *** SOME VALUES HAVE BEEN REPLACED - See "Replaced Features and Supported Approach" ***</Description>
+	  </Field>
+   <Field added="FIX.2.7">
+		    <Tag>72</Tag>
+		    <Name>RefAllocID</Name>
+		    <Type>String</Type>
+		    <AbbrName>RefAllocID</AbbrName>
+		    <BaseCategory>Allocation</BaseCategory>
+		    <BaseCategoryAbbrName>RefID</BaseCategoryAbbrName>
+		    <NotReqXML>0</NotReqXML>
+		    <Description>Reference identifier to be used with AllocTransType (71) = Replace or Cancel.
+(Prior to FIX 4.1 this field was of type int)</Description>
+	  </Field>
+   <Field added="FIX.2.7">
+		    <Tag>73</Tag>
+		    <Name>NoOrders</Name>
+		    <Type>NumInGroup</Type>
+		    <AbbrName>NoOrds</AbbrName>
+		    <NotReqXML>1</NotReqXML>
+		    <Description>Indicates number of orders to be combined for average pricing and allocation.</Description>
+	  </Field>
+   <Field added="FIX.2.7">
+		    <Tag>74</Tag>
+		    <Name>AvgPxPrecision</Name>
+		    <Type>int</Type>
+		    <AbbrName>AvgPxPrcsn</AbbrName>
+		    <NotReqXML>0</NotReqXML>
+		    <Description>Indicates number of decimal places to be used for average pricing. Absence of this field indicates that default precision arranged by the broker/institution is to be used.</Description>
+	  </Field>
+   <Field added="FIX.2.7" updated="FIX.5.0SP2" updatedEP="190">
+      <Tag>75</Tag>
+      <Name>TradeDate</Name>
+      <Type>LocalMktDate</Type>
+      <AbbrName>TrdDt</AbbrName>
+      <NotReqXML>0</NotReqXML>
+      <Description>Indicates date of trading day. Absence of this field indicates current day (expressed in local time at place of trade).</Description>
+   </Field>
+   <Field added="FIX.2.7">
+		    <Tag>77</Tag>
+		    <Name>PositionEffect</Name>
+		    <Type>char</Type>
+		    <AbbrName>PosEfct</AbbrName>
+		    <NotReqXML>0</NotReqXML>
+		    <Description>Indicates whether the resulting position after a trade should be an opening position or closing position. Used for omnibus accounting - where accounts are held on a gross basis instead of being netted together.</Description>
+	  </Field>
+   <Field added="FIX.2.7">
+		    <Tag>78</Tag>
+		    <Name>NoAllocs</Name>
+		    <Type>NumInGroup</Type>
+		    <AbbrName>NoAllocs</AbbrName>
+		    <NotReqXML>1</NotReqXML>
+		    <Description>Number of repeating AllocAccount (79)/AllocPrice (366) entries.</Description>
+	  </Field>
+   <Field added="FIX.2.7">
+		    <Tag>79</Tag>
+		    <Name>AllocAccount</Name>
+		    <Type>String</Type>
+		    <AbbrName>Acct</AbbrName>
+		    <NotReqXML>0</NotReqXML>
+		    <Description>Sub-account mnemonic</Description>
+	  </Field>
+   <Field added="FIX.2.7">
+		    <Tag>80</Tag>
+		    <Name>AllocQty</Name>
+		    <Type>Qty</Type>
+		    <AbbrName>Qty</AbbrName>
+		    <NotReqXML>0</NotReqXML>
+		    <Description>Quantity to be allocated to specific sub-account
+(Prior to FIX 4.2 this field was of type int)</Description>
+	  </Field>
+   <Field added="FIX.2.7">
+		    <Tag>81</Tag>
+		    <Name>ProcessCode</Name>
+		    <Type>char</Type>
+		    <AbbrName>ProcCode</AbbrName>
+		    <NotReqXML>0</NotReqXML>
+		    <Description>Processing code for sub-account. Absence of this field in AllocAccount (79) / AllocPrice (366) /AllocQty (80) / ProcessCode instance indicates regular trade.</Description>
+	  </Field>
+   <Field added="FIX.2.7">
+		    <Tag>82</Tag>
+		    <Name>NoRpts</Name>
+		    <Type>int</Type>
+		    <AbbrName>NoRpts</AbbrName>
+		    <NotReqXML>0</NotReqXML>
+		    <Description>Total number of reports within series.</Description>
+	  </Field>
+   <Field added="FIX.2.7">
+		    <Tag>83</Tag>
+		    <Name>RptSeq</Name>
+		    <Type>int</Type>
+		    <AbbrName>RptSeq</AbbrName>
+		    <NotReqXML>0</NotReqXML>
+		    <Description>Sequence number of message within report series. Used to carry reporting sequence number of the fill as represented on the Trade Report Side.</Description>
+	  </Field>
+   <Field added="FIX.2.7">
+		    <Tag>84</Tag>
+		    <Name>CxlQty</Name>
+		    <Type>Qty</Type>
+		    <AbbrName>CxlQty</AbbrName>
+		    <NotReqXML>0</NotReqXML>
+		    <Description>Total quantity canceled for this order.
+(Prior to FIX 4.2 this field was of type int)</Description>
+	  </Field>
+   <Field added="FIX.2.7" issue="SPEC-394">
+		    <Tag>85</Tag>
+		    <Name>NoDlvyInst</Name>
+		    <Type>NumInGroup</Type>
+		    <AbbrName>NoDlvyInst</AbbrName>
+		    <NotReqXML>1</NotReqXML>
+		    <Description>Number of delivery instruction fields in repeating group.
+Note this field was removed in FIX 4.1 and reinstated in FIX 4.4.</Description>
+	  </Field>
+   <Field added="FIX.2.7">
+		    <Tag>87</Tag>
+		    <Name>AllocStatus</Name>
+		    <Type>int</Type>
+		    <AbbrName>Stat</AbbrName>
+		    <BaseCategory>Allocation</BaseCategory>
+		    <BaseCategoryAbbrName>Stat</BaseCategoryAbbrName>
+		    <NotReqXML>0</NotReqXML>
+		    <Description>Identifies status of allocation.</Description>
+	  </Field>
+   <Field updated="FIX.5.0SP1" updatedEP="95" added="FIX.2.7">
+		    <Tag>88</Tag>
+		    <Name>AllocRejCode</Name>
+		    <Type>int</Type>
+		    <AbbrName>RejCode</AbbrName>
+		    <NotReqXML>0</NotReqXML>
+		    <UnionDataType>Reserved100Plus</UnionDataType>
+		    <Description>Identifies reason for rejection.</Description>
+	  </Field>
+   <Field added="FIX.2.7" deprecated="FIXT.1.1">
+		    <Tag>89</Tag>
+		    <Name>Signature</Name>
+		    <Type>data</Type>
+		    <AbbrName>Signature</AbbrName>
+		    <NotReqXML>1</NotReqXML>
+		    <Description>Electronic signature</Description>
+	  </Field>
+   <Field added="FIX.2.7" deprecated="FIXT.1.1">
+		    <Tag>90</Tag>
+		    <Name>SecureDataLen</Name>
+		    <Type>Length</Type>
+		    <AssociatedDataTag>91</AssociatedDataTag>
+		    <AbbrName>SecureDataLen</AbbrName>
+		    <NotReqXML>1</NotReqXML>
+		    <Description>Length of encrypted message</Description>
+	  </Field>
+   <Field added="FIX.2.7" deprecated="FIXT.1.1">
+		    <Tag>91</Tag>
+		    <Name>SecureData</Name>
+		    <Type>data</Type>
+		    <AbbrName>SecureData</AbbrName>
+		    <NotReqXML>1</NotReqXML>
+		    <Description>Actual encrypted data stream</Description>
+	  </Field>
+   <Field added="FIX.2.7" deprecated="FIXT.1.1">
+		    <Tag>93</Tag>
+		    <Name>SignatureLength</Name>
+		    <Type>Length</Type>
+		    <AssociatedDataTag>89</AssociatedDataTag>
+		    <AbbrName>SignatureLength</AbbrName>
+		    <NotReqXML>1</NotReqXML>
+		    <Description>Number of bytes in signature field</Description>
+	  </Field>
+   <Field added="FIX.2.7">
+		    <Tag>94</Tag>
+		    <Name>EmailType</Name>
+		    <Type>char</Type>
+		    <AbbrName>EmailTyp</AbbrName>
+		    <NotReqXML>0</NotReqXML>
+		    <Description>Email message type.</Description>
+	  </Field>
+   <Field added="FIX.2.7">
+		    <Tag>95</Tag>
+		    <Name>RawDataLength</Name>
+		    <Type>Length</Type>
+		    <AssociatedDataTag>96</AssociatedDataTag>
+		    <AbbrName>RawDataLength</AbbrName>
+		    <NotReqXML>0</NotReqXML>
+		    <Description>Number of bytes in raw data field.</Description>
+	  </Field>
+   <Field added="FIX.2.7">
+		    <Tag>96</Tag>
+		    <Name>RawData</Name>
+		    <Type>data</Type>
+		    <AbbrName>RawData</AbbrName>
+		    <NotReqXML>0</NotReqXML>
+		    <Description>Unformatted raw data, can include bitmaps, word processor documents, etc.</Description>
+	  </Field>
+   <Field added="FIX.2.7">
+		    <Tag>97</Tag>
+		    <Name>PossResend</Name>
+		    <Type>Boolean</Type>
+		    <AbbrName>PosRsnd</AbbrName>
+		    <NotReqXML>0</NotReqXML>
+		    <Description>Indicates that message may contain information that has been sent under another sequence number.</Description>
+	  </Field>
+   <Field added="FIX.2.7">
+		    <Tag>98</Tag>
+		    <Name>EncryptMethod</Name>
+		    <Type>int</Type>
+		    <AbbrName>EncryptMethod</AbbrName>
+		    <NotReqXML>1</NotReqXML>
+		    <Description>Method of encryption.</Description>
+	  </Field>
+   <Field added="FIX.2.7">
+		    <Tag>99</Tag>
+		    <Name>StopPx</Name>
+		    <Type>Price</Type>
+		    <AbbrName>StopPx</AbbrName>
+		    <NotReqXML>0</NotReqXML>
+		    <Description>Price per unit of quantity (e.g. per share)</Description>
+	  </Field>
+   <Field added="FIX.2.7">
+		    <Tag>100</Tag>
+		    <Name>ExDestination</Name>
+		    <Type>Exchange</Type>
+		    <AbbrName>ExDest</AbbrName>
+		    <NotReqXML>0</NotReqXML>
+		    <Description>Execution destination as defined by institution when order is entered.
+Valid values:
+See "Appendix 6-C"</Description>
+	  </Field>
+</Fields>

@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="XmlDataType.fs" />
+    <Compile Include="XmlEnum.fs" />
+    <Compile Include="XmlField.fs" />
+    <Compile Include="XmlComponent.fs" />
+    <Compile Include="XmlMsgContent.fs" />
+    <Compile Include="XmlMessage.fs" />
+    <Compile Include="XmlVersion.fs" />
+  </ItemGroup>
+
+</Project>

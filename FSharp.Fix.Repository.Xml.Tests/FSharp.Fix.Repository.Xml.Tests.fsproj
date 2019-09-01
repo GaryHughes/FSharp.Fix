@@ -1,0 +1,34 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+
+    <IsPackable>false</IsPackable>
+    <GenerateProgramFile>false</GenerateProgramFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="XmlEnumTests.fs" />
+    <Compile Include="XmlFieldTests.fs" />
+    <Compile Include="XmlDataTypeTests.fs" />
+    <Compile Include="XmlComponentTests.fs" />
+    <Compile Include="XmlMsgContentTests.fs" />
+    <Compile Include="XmlMessageTests.fs" />
+    <Compile Include="Program.fs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.0.1" />
+    <PackageReference Include="MSTest.TestAdapter" Version="1.4.0" />
+    <PackageReference Include="MSTest.TestFramework" Version="1.4.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <TestFiles Include="$(MSBuildProjectDirectory)\TestRepository\**\*.*" /> 
+  </ItemGroup>
+ 
+  <Target Name="CopyTestFiles">
+    <Copy SourceFiles="@(TestFiles)" DestinationFolder="$(OutputPath)\TestRepository\%(RecursiveDir)"></Copy>
+  </Target>
+  
+</Project>
