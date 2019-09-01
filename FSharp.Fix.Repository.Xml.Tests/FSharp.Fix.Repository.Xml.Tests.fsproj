@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk" InitialTargets="CopyTestFiles">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
@@ -6,6 +6,10 @@
     <IsPackable>false</IsPackable>
     <GenerateProgramFile>false</GenerateProgramFile>
   </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\FSharp.Fix.Repository.Xml\FSharp.Fix.Repository.Xml.fsproj" />
+  </ItemGroup>
 
   <ItemGroup>
     <Compile Include="XmlEnumTests.fs" />
