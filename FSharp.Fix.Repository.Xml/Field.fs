@@ -1,7 +1,6 @@
-module Repository.Xml.Field
+namespace Fix.Repository.Xml
 
 open System.Xml.Serialization
-open System.IO
 
 // Types to load the FIX repository Fields.xml file.
 //
@@ -34,9 +33,3 @@ type Fields =
         [<XmlElement("Field")>]
         Items : Field[]
     }
-
-let loadFields versionPath =
-    use stream = new FileStream(Path.Combine(versionPath, "Base", "Fields.xml"), FileMode.Open)
-    let serializer = XmlSerializer(typeof<Fields>)
-    let data = serializer.Deserialize(stream) :?> Fields
-    data.Items

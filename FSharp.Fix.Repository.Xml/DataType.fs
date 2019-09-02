@@ -1,7 +1,6 @@
-module Repository.Xml.DataType
+namespace Fix.Repository.Xml
 
 open System.Xml.Serialization
-open System.IO
 
 // Types to load the FIX repository Datatypes.xml file. 
 //
@@ -33,9 +32,3 @@ type DataTypes =
         [<XmlElement("Datatype")>]
         Items : DataType[]
     }
-
-let loadDataTypes versionPath =
-    use stream = new FileStream(Path.Combine(versionPath, "Base", "Datatypes.xml"), FileMode.Open)
-    let serializer = XmlSerializer(typeof<DataTypes>)
-    let data = serializer.Deserialize(stream) :?> DataTypes
-    data.Items

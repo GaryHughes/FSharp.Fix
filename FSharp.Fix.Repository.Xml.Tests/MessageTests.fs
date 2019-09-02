@@ -1,8 +1,7 @@
 namespace FSharp.Fix.Repository.Tests
 
-open System
 open Microsoft.VisualStudio.TestTools.UnitTesting
-open Repository.Xml.Message
+open Fix.Repository.Xml
 
 [<TestClass>]
 type TestXmlMessage () =

@@ -4,12 +4,10 @@ open System
 open System.Collections
 open System.Collections.Generic
 open ProviderImplementation.ProvidedTypes
-open Repository.Xml.Version
-open Repository.Xml.Message
-
+open Fix.Repository.Xml
 
 // This is the definition of a field for a specific message.
-type public MessageField(field:Xml.Field.Field, required:bool, indent:int, added:string) =
+type public MessageField(field:Fix.Repository.Xml.Field, required:bool, indent:int, added:string) =
     // Common properties from the version field definition
     member public __.Tag with get() = field.Tag 
     member public __.Name with get() = field.Name
@@ -28,9 +26,9 @@ type public MessageField(field:Xml.Field.Field, required:bool, indent:int, added
 let fieldsForMessage path componentID =
 
     // Can we, should we cache this stuff better?
-    let versionFields = Xml.Field.loadFields(path)
-    let msgContents = Xml.MsgContent.loadMsgContents(path)
-    let components = Xml.Component.loadComponents(path)
+    let versionFields = Fix.Repository.Xml.IO.loadFields(path)
+    let msgContents = loadMsgContents(path)
+    let components = loadComponents(path)
 
     let messageFields = List<MessageField>()
 

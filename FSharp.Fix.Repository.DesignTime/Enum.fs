@@ -2,7 +2,7 @@ module Repository.Enum
 
 open System.Collections.Generic
 open ProviderImplementation.ProvidedTypes
-open Repository.Xml.Version
+open Fix.Repository.Xml
 
 let createEnums namespaceName assembly version =
     

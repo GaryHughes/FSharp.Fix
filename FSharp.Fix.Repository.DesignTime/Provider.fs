@@ -5,7 +5,8 @@ open System.Reflection
 open ProviderImplementation.ProvidedTypes
 open FSharp.Core.CompilerServices
 open FSharp.Quotations
-open Repository.Xml.Version
+open Fix.Repository.Xml
+
 open Repository.Enum
 open Repository.DataType
 open Repository.Field

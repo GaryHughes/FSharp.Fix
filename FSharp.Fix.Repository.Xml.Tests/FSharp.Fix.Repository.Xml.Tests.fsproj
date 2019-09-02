@@ -12,12 +12,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Include="XmlEnumTests.fs" />
-    <Compile Include="XmlFieldTests.fs" />
-    <Compile Include="XmlDataTypeTests.fs" />
-    <Compile Include="XmlComponentTests.fs" />
-    <Compile Include="XmlMsgContentTests.fs" />
-    <Compile Include="XmlMessageTests.fs" />
+    <Compile Include="EnumTests.fs" />
+    <Compile Include="FieldTests.fs" />
+    <Compile Include="DataTypeTests.fs" />
+    <Compile Include="ComponentTests.fs" />
+    <Compile Include="MsgContentTests.fs" />
+    <Compile Include="MessageTests.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>
 

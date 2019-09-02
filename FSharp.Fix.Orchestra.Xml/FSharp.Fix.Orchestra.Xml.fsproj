@@ -5,7 +5,19 @@
   </PropertyGroup>
 
   <ItemGroup>
-    
+    <Compile Include="Documentation.fs" />
+    <Compile Include="Annotation.fs" />
+    <Compile Include="FieldRef.fs" />
+    <Compile Include="Metadata.fs" />
+    <Compile Include="CodeSet.fs" />
+    <Compile Include="DataType.fs" />
+    <Compile Include="Category.fs" />
+    <Compile Include="Section.fs" />
+    <Compile Include="Field.fs" />
+    <Compile Include="Component.fs" />
+    <Compile Include="Group.fs" />
+    <Compile Include="Message.fs" />
+    <Compile Include="Repository.fs" />
   </ItemGroup>
 
 </Project>

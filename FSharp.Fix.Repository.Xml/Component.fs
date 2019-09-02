@@ -1,7 +1,6 @@
-module Repository.Xml.Component
+namespace Fix.Repository.Xml
 
 open System.Xml.Serialization
-open System.IO
 
 // Types to load the FIX repository Components.xml file. 
 //
@@ -37,8 +36,4 @@ type Components =
         Items : Component[]
     }
    
- let loadComponents versionPath =
-    use stream = new FileStream(Path.Combine(versionPath, "Base", "Components.xml"), FileMode.Open)
-    let serializer = XmlSerializer(typeof<Components>)
-    let data = serializer.Deserialize(stream) :?> Components
-    data.Items
+ 

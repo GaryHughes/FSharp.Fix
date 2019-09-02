@@ -5,13 +5,14 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Include="XmlDataType.fs" />
-    <Compile Include="XmlEnum.fs" />
-    <Compile Include="XmlField.fs" />
-    <Compile Include="XmlComponent.fs" />
-    <Compile Include="XmlMsgContent.fs" />
-    <Compile Include="XmlMessage.fs" />
-    <Compile Include="XmlVersion.fs" />
+    <Compile Include="DataType.fs" />
+    <Compile Include="Enum.fs" />
+    <Compile Include="Field.fs" />
+    <Compile Include="Component.fs" />
+    <Compile Include="MsgContent.fs" />
+    <Compile Include="Message.fs" />
+    <Compile Include="Version.fs" />
+    <Compile Include="IO.fs" />
   </ItemGroup>
 
 </Project>

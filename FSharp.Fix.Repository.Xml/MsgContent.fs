@@ -1,7 +1,6 @@
-module Repository.Xml.MsgContent
+namespace Fix.Repository.Xml
 
 open System.Xml.Serialization
-open System.IO
 
 // Types to load the FIX repository MsgContents.xml file. 
 //
@@ -36,9 +35,3 @@ type MsgContents =
         [<XmlElement("MsgContent")>]
         Items : MsgContent[]
     }
-   
-let loadMsgContents versionPath =
-    use stream = new FileStream(Path.Combine(versionPath, "Base", "MsgContents.xml"), FileMode.Open)
-    let serializer = XmlSerializer(typeof<MsgContents>)
-    let data = serializer.Deserialize(stream) :?> MsgContents
-    data.Items

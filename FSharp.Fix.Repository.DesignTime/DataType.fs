@@ -1,7 +1,7 @@
 module Repository.DataType
 
 open ProviderImplementation.ProvidedTypes
-open Repository.Xml.Version
+open Fix.Repository.Xml
 
 let createDataTypes namespaceName assembly version =
 

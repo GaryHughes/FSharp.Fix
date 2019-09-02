@@ -1,8 +1,8 @@
-namespace FSharp.Fix.Repository.Tests
+namespace FSharp.Fix.Repository.Xml.Tests
 
 open System
 open Microsoft.VisualStudio.TestTools.UnitTesting
-open Repository.Xml.Component
+open Fix.Repository.Xml
 
 [<TestClass>]
 type TestXmlComponent () =

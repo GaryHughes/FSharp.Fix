@@ -1,7 +1,6 @@
-module Repository.Xml.Enum
+namespace Fix.Repository.Xml
 
 open System.Xml.Serialization
-open System.IO
 
 // Types to load the FIX repository Enums.xml file.
 //
@@ -33,8 +32,4 @@ type Enums =
         Items : Enum[]
     }
 
-let loadEnums versionPath =
-    use stream = new FileStream(Path.Combine(versionPath, "Base", "Enums.xml"), FileMode.Open)
-    let serializer = XmlSerializer(typeof<Enums>)
-    let data = serializer.Deserialize(stream) :?> Enums
-    data.Items
+

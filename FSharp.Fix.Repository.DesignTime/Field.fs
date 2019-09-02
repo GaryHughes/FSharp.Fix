@@ -1,10 +1,9 @@
 module Repository.Field
 
 open ProviderImplementation.ProvidedTypes
-open Repository.Xml.Version
-open Repository.Xml.Field
+open Fix.Repository.Xml
 
-let createField namespaceName assembly field =
+let createField namespaceName assembly (field:Fix.Repository.Xml.Field) =
 
     let fieldType = ProvidedTypeDefinition(assembly, namespaceName, field.Name, Some typeof<obj>)
 

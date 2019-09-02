@@ -27,6 +27,8 @@ Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "FSharp.Fix.Orchestra.Xml", 
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "FSharp.Fix.Repository.Xml.Tests", "FSharp.Fix.Repository.Xml.Tests\FSharp.Fix.Repository.Xml.Tests.fsproj", "{632373F6-6F5E-4399-88D7-CD9D96626FB6}"
 EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "FSharp.Fix.Orchestra.Xml.Tests", "FSharp.Fix.Orchestra.Xml.Tests\FSharp.Fix.Orchestra.Xml.Tests.fsproj", "{B985E085-DED0-4A99-82F6-27E9278AA132}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -181,6 +183,18 @@ Global
 		{632373F6-6F5E-4399-88D7-CD9D96626FB6}.Release|x64.Build.0 = Release|Any CPU
 		{632373F6-6F5E-4399-88D7-CD9D96626FB6}.Release|x86.ActiveCfg = Release|Any CPU
 		{632373F6-6F5E-4399-88D7-CD9D96626FB6}.Release|x86.Build.0 = Release|Any CPU
+		{B985E085-DED0-4A99-82F6-27E9278AA132}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B985E085-DED0-4A99-82F6-27E9278AA132}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B985E085-DED0-4A99-82F6-27E9278AA132}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{B985E085-DED0-4A99-82F6-27E9278AA132}.Debug|x64.Build.0 = Debug|Any CPU
+		{B985E085-DED0-4A99-82F6-27E9278AA132}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{B985E085-DED0-4A99-82F6-27E9278AA132}.Debug|x86.Build.0 = Debug|Any CPU
+		{B985E085-DED0-4A99-82F6-27E9278AA132}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B985E085-DED0-4A99-82F6-27E9278AA132}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B985E085-DED0-4A99-82F6-27E9278AA132}.Release|x64.ActiveCfg = Release|Any CPU
+		{B985E085-DED0-4A99-82F6-27E9278AA132}.Release|x64.Build.0 = Release|Any CPU
+		{B985E085-DED0-4A99-82F6-27E9278AA132}.Release|x86.ActiveCfg = Release|Any CPU
+		{B985E085-DED0-4A99-82F6-27E9278AA132}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
