@@ -1,3 +1,4 @@
+#r "../FSharp.Fix.Repository.Xml/bin/Debug/netstandard2.0/FSharp.Fix.Repository.Xml.dll"
 #r "../FSharp.Fix.Repository/bin/Debug/netstandard2.0/FSharp.Fix.Repository.DesignTime.dll"
 #r "/usr/local/share/dotnet/shared/Microsoft.NETCore.App/2.2.4/netstandard.dll"
 

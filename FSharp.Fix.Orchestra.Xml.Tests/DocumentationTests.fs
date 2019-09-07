@@ -1,6 +1,5 @@
 namespace FSharp.Fix.Orchestra.Xml.Tests
 
-open System
 open Microsoft.VisualStudio.TestTools.UnitTesting
 open Orchestra.Xml
 
@@ -8,11 +7,12 @@ open Orchestra.Xml
 type TestDocumentation () =
 
     [<TestMethod>]
-    member this.TestLoadComponents () =
-        Assert.IsTrue(true)
-        // let components = loadComponents "TestRepository/FIX.4.0"
-        // Assert.AreEqual(2, components.Length)
-        // let item = components |> Seq.head
-        // Assert.AreEqual("1001", item.ComponentID)
-        // Assert.AreEqual("StandardHeader", item.Name)
-       
+    member this.TestLoadDocumentation () =
+        let text = 
+            @"<fixr:documentation xmlns:fixr=""http://fixprotocol.io/2016/fixrepository"" purpose=""SYNOPSIS"">\n\
+                Buy\n\
+              </fixr:documentation>";
+        let documentation = loadOrchestraFragment<Documentation> text
+        Assert.AreEqual("SYNOPSIS", documentation.Purpose)
+
+

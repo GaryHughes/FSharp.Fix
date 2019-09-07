@@ -12,6 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Include="Serialisation.fs" />
     <Compile Include="DocumentationTests.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>

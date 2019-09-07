@@ -33,7 +33,8 @@ Download one or more repositories from fixtrading.org and unpack them into a com
 Instantiate the Type Provider as shown in the following script and pass the repository root directory as a type parameter. You will then be able to navigate the available versions and their supported messages and fields.
 
 ```fsharp
-#r "bin/Debug/netstandard2.0/FSharp.Fix.Repository.DesignTime.dll"
+#r "FSharp.Fix.Repository.Xml.dll"
+#r "FSharp.Fix.Repository.DesignTime.dll"
 
 open FSharp.Fix
 
