@@ -11,12 +11,13 @@ open System.Xml.Serialization
 //  </fixr:fieldRef>
 
 [<CLIMutable>]
+[<XmlType("fieldRef")>]
 type FieldRef =
     {
         [<XmlAttribute("id")>]
         Id:int
         [<XmlAttribute("added")>]
         Added:string
-        [<XmlAttribute("annotation")>]
-        Annotation:Annotation
+        [<XmlElement("annotation")>]
+        Annotation:Annotation[]
     }

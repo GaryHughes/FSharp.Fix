@@ -29,6 +29,7 @@ open System.Xml.Serialization
 // </fixr:messages>
 
 [<CLIMutable>]
+[<XmlType("componentRef")>]
 type ComponentRef =
     {
         [<XmlAttribute("id")>]
@@ -37,15 +38,16 @@ type ComponentRef =
         Presence : string
         [<XmlAttribute("added")>]
         Added : string
-        [<XmlElement>]
+        [<XmlElement("annotation")>]
         Annotation : Annotation[]
     }
 
 
 [<CLIMutable>]
+[<XmlType("structure")>]
 type Structure = 
     {
-        // This typed grouping breaks ordering, is that important?
+        // TODO - How do we fix this?
         [<XmlElement("componentRef")>]
         ComponentRefs : ComponentRef[]
         [<XmlElement("fieldRef")>]
@@ -53,12 +55,27 @@ type Structure =
     }
 
 [<CLIMutable>]
+[<XmlType("message")>]
 type Message =
     {
-        Structure : Structure
+        [<XmlAttribute("name")>]
+        Name : string
+        [<XmlAttribute("id")>] 
+        Id : int 
+        [<XmlAttribute("msgType")>]
+        MsgType : string 
+        [<XmlAttribute("category")>]
+        Category : string
+        [<XmlAttribute("added")>] 
+        Added : string
+        [<XmlAttribute("AbbrName")>] 
+        AbbrName : string
+        [<XmlElement("structure")>]
+        Structure : Structure[]
     }
 
 [<CLIMutable>]
+[<XmlType("messages")>]
 type Messages =
     {
         [<XmlElement("message")>]

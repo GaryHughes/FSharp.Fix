@@ -13,6 +13,7 @@ open System.Xml.Serialization
 // </fixr:metadata>
 
 [<CLIMutable>]
+[<XmlType("metadata")>]
 type Metadata =
     {
         [<XmlAttribute("title")>]

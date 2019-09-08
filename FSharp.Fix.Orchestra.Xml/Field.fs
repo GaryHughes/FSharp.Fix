@@ -21,6 +21,7 @@ open System.Xml.Serialization
 // </fixr:fields>
 
 [<CLIMutable>]
+[<XmlType("field")>]
 type Field =
     {
         [<XmlAttribute("name")>]
@@ -36,6 +37,7 @@ type Field =
     }
 
 [<CLIMutable>]
+[<XmlType("fields")>]
 type Fields =
     {
         [<XmlElement("field")>]

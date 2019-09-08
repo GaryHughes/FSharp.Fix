@@ -1,5 +1,7 @@
 namespace Orchestra.Xml
 
+open System.Xml.Serialization
+
 // <fixr:annotation>
 //      <fixr:documentation purpose="SYNOPSIS">
 //          Buy
@@ -7,7 +9,9 @@ namespace Orchestra.Xml
 //  </fixr:annotation>
 
 [<CLIMutable>]
+[<XmlType("annotation")>]
 type Annotation =
     {
-        Documentation:Documentation
+        [<XmlElement("documentation")>] 
+        Documentation : Documentation[]
     }

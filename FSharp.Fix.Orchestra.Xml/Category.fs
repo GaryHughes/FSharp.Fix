@@ -8,6 +8,7 @@ open System.Xml.Serialization
 //  </fixr:categories>
 
 [<CLIMutable>]
+[<XmlType("category")>]
 type Category =
     {
         [<XmlAttribute("name")>]
@@ -22,6 +23,7 @@ type Category =
     }
 
 [<CLIMutable>]
+[<XmlType("categories")>]
 type Categories =
     {
         [<XmlElement("category")>]

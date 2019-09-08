@@ -2,6 +2,7 @@ namespace Orchestra.Xml
 
 open System.Xml.Serialization
 
+// <fixr:datatypes>
 // <fixr:datatype name="int" added="FIX.2.7" issue="SPEC-370">
 //  <fixr:mappedDatatype standard="XML" base="xs:integer" builtin="1">
 //      <fixr:annotation>
@@ -24,20 +25,30 @@ open System.Xml.Serialization
 //         </fixr:documentation>
 //  </fixr:annotation>
 // </fixr:datatype>
+// </fixr:datatypes>
 
 [<CLIMutable>]
+[<XmlType("mappedDatatype")>]
 type MappedDataType =
     {
-        Annotation:Annotation
+        [<XmlElement("annotation")>]
+        Annotation:Annotation[]
     }
 
 [<CLIMutable>]
+[<XmlType("datatype")>]
 type DataType =
     {
-        MappedDataType:MappedDataType
+        [<XmlAttribute("name")>]
+        Name : string
+        [<XmlElement("mappedDatatype")>]
+        MappedDataType:MappedDataType[]
+        [<XmlElement("annotation")>]
+        Annotation:Annotation[]
     }
 
 [<CLIMutable>]
+[<XmlType("datatypes")>]
 type DataTypes =
     {
         [<XmlElement("datatype")>]

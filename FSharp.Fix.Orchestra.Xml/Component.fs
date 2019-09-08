@@ -15,6 +15,7 @@ open System.Xml.Serialization
 // </fixr:components>
 
 [<CLIMutable>]
+[<XmlType("component")>]
 type Component =
     {
         [<XmlAttribute("name")>]
@@ -32,8 +33,11 @@ type Component =
     }
 
 [<CLIMutable>]
+[<XmlType("components")>]
 type Components =
     {
+        [<XmlAttribute("latestEP")>]
+        LatestEP:string
         [<XmlElement("component")>]
         Components : Component[]
     }

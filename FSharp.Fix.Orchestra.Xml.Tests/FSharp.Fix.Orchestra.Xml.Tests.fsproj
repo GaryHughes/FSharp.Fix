@@ -1,26 +1,28 @@
 <Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
     <TargetFramework>netcoreapp3.0</TargetFramework>
-
-    <IsPackable>false</IsPackable>
-    <GenerateProgramFile>false</GenerateProgramFile>
   </PropertyGroup>
-
   <ItemGroup>
     <ProjectReference Include="..\FSharp.Fix.Orchestra.Xml\FSharp.Fix.Orchestra.Xml.fsproj" />
   </ItemGroup>
-
   <ItemGroup>
     <Compile Include="Serialisation.fs" />
     <Compile Include="DocumentationTests.fs" />
-    <Compile Include="Program.fs" />
+    <Compile Include="AnnotationTests.fs" />
+    <Compile Include="MetadataTests.fs" />
+    <Compile Include="CategoryTests.fs" />
+    <Compile Include="SectionTests.fs" />
+    <Compile Include="FieldTests.fs" />
+    <Compile Include="FieldRefTests.fs" />
+    <Compile Include="CodeSetTests.fs" />
+    <Compile Include="ComponentTests.fs" />
+    <Compile Include="GroupTests.fs" />
+    <Compile Include="MessageTests.fs" />
+    <Compile Include="DataTypeTests.fs" />
   </ItemGroup>
-
   <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.0.1" />
     <PackageReference Include="MSTest.TestAdapter" Version="1.4.0" />
     <PackageReference Include="MSTest.TestFramework" Version="1.4.0" />
   </ItemGroup>
-
 </Project>

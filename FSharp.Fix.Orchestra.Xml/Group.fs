@@ -16,6 +16,7 @@ open System.Xml.Serialization
 // </fixr:groups>
 
 [<CLIMutable>]
+[<XmlType("numInGroup")>]
 type NumInGroup =
     {
         [<XmlAttribute("id")>]
@@ -23,6 +24,7 @@ type NumInGroup =
     }
 
 [<CLIMutable>]
+[<XmlType("group")>]
 type Group =
     {
         [<XmlAttribute("id")>]
@@ -38,8 +40,11 @@ type Group =
     }
 
 [<CLIMutable>]
+[<XmlType("groups")>]
 type Groups =
     {
+        [<XmlAttribute("latestEP")>]
+        LatestEP:string
         [<XmlElement("group")>]
         Groups : Group[]
     }

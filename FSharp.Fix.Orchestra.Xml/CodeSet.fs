@@ -15,14 +15,41 @@ open System.Xml.Serialization
 // </fixr:codeSets>
 
 [<CLIMutable>]
+[<XmlType("code")>]
 type Code =
     {
+        [<XmlAttribute("name")>]
+        Name : string
+        [<XmlAttribute("id")>]
+        Id : int
+        [<XmlAttribute("value")>]
+        Value : string
+        [<XmlAttribute("sort")>]
+        Sort : int
+        [<XmlAttribute("added")>]
+        Added : string
+        [<XmlElement("annotation")>]
         Annotation:Annotation
     }
 
 [<CLIMutable>]
-type CodeSets =
+[<XmlType("codeSet")>]
+type CodeSet =
     {
+        [<XmlAttribute("name")>]
+        Name : string
+        [<XmlAttribute("id")>]
+        Id : int
+        [<XmlAttribute("type")>]
+        Type : string
         [<XmlElement("code")>]
         Codes : Code[]
+    }
+
+[<CLIMutable>]
+[<XmlType("codeSets")>]
+type CodeSets =
+    {
+        [<XmlElement("codeSet")>]
+        CodeSets : CodeSet[]
     }

@@ -13,6 +13,7 @@ open System.Xml.Serialization
 // </fixr:sections>
 
 [<CLIMutable>]
+[<XmlType("section")>]
 type Section =
     {
         [<XmlAttribute("name")>]
@@ -25,6 +26,7 @@ type Section =
     }
 
 [<CLIMutable>]
+[<XmlType("sections")>]
 type Sections =
     {
         [<XmlElement("section")>]
