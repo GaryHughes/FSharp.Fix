@@ -14,5 +14,6 @@ type TestDocumentation () =
               </fixr:documentation>";
         let documentation = loadOrchestraFragment<Documentation> text
         Assert.AreEqual("SYNOPSIS", documentation.Purpose)
+    
 
 

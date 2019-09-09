@@ -12,4 +12,6 @@ type Documentation =
     {
         [<XmlAttribute("purpose")>]
         Purpose:string
+        [<XmlText>]
+        Text:string
     }

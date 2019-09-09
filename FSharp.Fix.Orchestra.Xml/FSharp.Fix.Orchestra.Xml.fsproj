@@ -17,6 +17,7 @@
     <Compile Include="Component.fs" />
     <Compile Include="Group.fs" />
     <Compile Include="Message.fs" />
+    <Compile Include="Actor.fs" />
     <Compile Include="Repository.fs" />
   </ItemGroup>
 

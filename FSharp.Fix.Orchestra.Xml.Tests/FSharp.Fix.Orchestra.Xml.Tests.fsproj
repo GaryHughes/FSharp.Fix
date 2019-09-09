@@ -19,6 +19,7 @@
     <Compile Include="GroupTests.fs" />
     <Compile Include="MessageTests.fs" />
     <Compile Include="DataTypeTests.fs" />
+    <Compile Include="ActorTests.fs" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.0.1" />
