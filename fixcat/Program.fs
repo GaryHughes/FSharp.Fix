@@ -2,6 +2,12 @@
 open System.IO
 open FSharp.Fix
 
+type Repo = Repository< @"/Users/geh/Downloads/Repository" >
+
+let nameOfFieldWithTag tag = Repo.FIX_4_4.nameOfFieldWithTag tag
+
+let prettyPrinter = prettyPrint nameOfFieldWithTag
+
 let catStream stream = 
     parseMessagesFromLog stream
     |> Seq.map(fun result -> 
@@ -9,7 +15,7 @@ let catStream stream =
         | Ok message -> Some message
         | Error _ -> None)
     |> Seq.choose id
-    |> Seq.map prettyPrint
+    |> Seq.map prettyPrinter
     |> Seq.iter Console.WriteLine
 
 [<EntryPoint>]
