@@ -14,8 +14,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Include="..\..\FSharp.TypeProviders.SDK\src\ProvidedTypes.fsi" />
-    <Compile Include="..\..\FSharp.TypeProviders.SDK\src\ProvidedTypes.fs" />
+    <Compile Include="..\FSharp.TypeProviders.SDK\src\ProvidedTypes.fsi" />
+    <Compile Include="..\FSharp.TypeProviders.SDK\src\ProvidedTypes.fs" />
     <Compile Include="DataType.fs" />
     <Compile Include="Enum.fs" />
     <Compile Include="Field.fs" />

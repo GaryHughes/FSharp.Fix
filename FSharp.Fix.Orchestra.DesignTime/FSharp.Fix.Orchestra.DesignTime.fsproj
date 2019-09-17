@@ -5,8 +5,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Include="..\..\FSharp.TypeProviders.SDK\src\ProvidedTypes.fsi" />
-    <Compile Include="..\..\FSharp.TypeProviders.SDK\src\ProvidedTypes.fs" />
+    <Compile Include="..\FSharp.TypeProviders.SDK\src\ProvidedTypes.fsi" />
+    <Compile Include="..\FSharp.TypeProviders.SDK\src\ProvidedTypes.fs" />
     <Compile Include="Provider.fs" />
   </ItemGroup>
 
