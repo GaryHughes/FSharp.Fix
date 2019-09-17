@@ -1,3 +1,5 @@
+[![Build Status](https://dev.azure.com/garyedwardhughes/FSharp.Fix/_apis/build/status/GaryHughes.FSharp.Fix?branchName=master)](https://dev.azure.com/garyedwardhughes/FSharp.Fix/_build/latest?definitionId=1&branchName=master)
+
 FSharp.Fix
 ===========
 
