@@ -2,7 +2,7 @@
 open System.IO
 open FSharp.Fix
 
-type Repo = Repository< @"/Users/geh/Downloads/Repository" >
+type Repo = Repository< @"../Repository" >
 
 let nameOfFieldWithTag tag = Repo.FIX_4_4.nameOfFieldWithTag tag
 
