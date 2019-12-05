@@ -99,8 +99,8 @@ fixcat is modelled on the UNIX cat utility; it will print FIX messages in human 
 
 It will read from standard input or a list of one or more filenames specified on the command line.
 
-    less fixlog | dotnet fixcat.dll
-    dotnet fixcat.dll fixlog1.txt fixlog2.txt fixlog3.txt
+    less fixlog | fixcat
+    fixcat fixlog1.txt fixlog2.txt fixlog3.txt
 
 The input is expected to be raw FIX messages, one per line, with an optional prefix which would typically be a timestamp etc as is typical in log files. The parser searches for **8=FIX.** and assumes that is the start of the message which continues until a CheckSum field or end of line is reached.
 
